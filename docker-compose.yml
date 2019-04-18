@@ -28,8 +28,8 @@ services:
       - "3306:3306"
       
   # The PHP container
-  producten_diensten_component:
-    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-php:latest
+  producten-diensten-component:
+    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component:latest
     build:
       context: ./ 
       dockerfile: docker/php/Dockerfile
@@ -42,7 +42,7 @@ services:
       - ./:/srv/api:rw,cached
       
   # The NGINX container
-  producten_diensten_api:
+  producten-diensten-api:
     image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx:latest
     build: 
       context: ./ 
@@ -51,7 +51,7 @@ services:
         - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_php
         - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_api  
     depends_on:
-      - producten_diensten_component
+      - producten-diensten-component
     volumes:
       - ./public:/srv/api/public:ro
     ports:
