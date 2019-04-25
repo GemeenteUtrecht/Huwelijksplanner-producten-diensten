@@ -1,11 +1,11 @@
 openapi: 3.0.2
 info:
   description: |
-    Welkom inovator!, 
-    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component 
+    Welkom inovator! <br>
+    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component. 
     
-    # Introduction                
-    De Trouwen component is ontwikkeld voor de gemeente Utrecht en heeft als doel het aansluiten [NLX](https://nlx.io/), volgens het [Common Ground](https://vng.nl/samen-organiseren/common-ground) principe, samen spelen, samen delen.
+    # Introductie                
+    Het producten en diensten component is ontwikkeld voor de gemeente Utrecht en is een producten- en dienstencatalogus. Je kan hier de diverse producten en diensten definiëren die te gebruiken zijn in verschillende processen. Dit component wordt vaak gebruikt met de betalen en orders componenten, maar dit is niet altijd noodzakelijk..
     
     # Common ground en open source
     Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden we zo veel mogenlijk informatie openbaar aan.  
@@ -20,7 +20,7 @@ info:
     Deze API is gedocumenteerd in het **OpenAPI format** 
     De API bevat Cross-Origin Resource Sharing (CORS) en is geimplementeerd volgen de [W3C spec](https://www.w3.org/TR/cors/) standaarden. De API staat cross-domain communicatie van de browser toe. Alle responses hebben een "wildcard same-origin" dit maakt ze volledig publiekelijk en toegankelijk voor iedereen. Dat geld voor elke code op elke site.
     
-    # Authentication
+    # Authenticatie
     
     producten en diensten heeft twee vormen van authenticatie:
       - API Key
@@ -45,10 +45,10 @@ info:
 paths:
   /organisaties:
     get:
+      summary: 'Haal een verzameling van organisatie resources op'
       tags:
         - Organisatie
       operationId: getOrganisatieCollection
-      summary: 'Retrieves the collection of Organisatie resources.'
       responses:
         200:
           description: 'Organisatie collection response'
@@ -70,10 +70,10 @@ paths:
                   $ref: '#/components/schemas/Organisatie'
       parameters: []
     post:
+      summary: 'Maak een organisatie resource aan'
       tags:
         - Organisatie
       operationId: postOrganisatieCollection
-      summary: 'Creates a Organisatie resource.'
       responses:
         201:
           description: 'Organisatie resource created'
@@ -111,10 +111,10 @@ paths:
         description: 'The new Organisatie resource'
   '/organisaties/{id}':
     get:
+      summary: 'Haal een specifieke organisatie resource op'
       tags:
         - Organisatie
       operationId: getOrganisatieItem
-      summary: 'Retrieves a Organisatie resource.'
       parameters:
         -
           name: id
@@ -138,10 +138,10 @@ paths:
         404:
           description: 'Resource not found'
     put:
+      summary: 'Vervang een specifieke organisatie resource'
       tags:
         - Organisatie
       operationId: putOrganisatieItem
-      summary: 'Replaces the Organisatie resource.'
       parameters:
         -
           name: id
@@ -179,10 +179,10 @@ paths:
               $ref: '#/components/schemas/Organisatie'
         description: 'The updated Organisatie resource'
     delete:
+      summary: 'Verwijder een specifieke organisatie resource'
       tags:
         - Organisatie
       operationId: deleteOrganisatieItem
-      summary: 'Removes the Organisatie resource.'
       responses:
         204:
           description: 'Organisatie resource deleted'
@@ -223,7 +223,7 @@ paths:
             type: string
   '/organisaties/{id}/revert/{version}':
     post:
-      summary: 'Versie terugdraaid'
+      summary: 'Versie terugdraaien'
       description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
       consumes:
         - application/json
@@ -558,10 +558,10 @@ paths:
         description: 'The updated ProductGroep resource'
   /producten:
     get:
+      summary: 'Haalt een verzameling van producten op'
       tags:
         - Product
       operationId: getProductCollection
-      summary: 'Retrieves the collection of Product resources.'
       responses:
         200:
           description: 'Product collection response'
@@ -583,10 +583,10 @@ paths:
                   $ref: '#/components/schemas/Product'
       parameters: []
     post:
+      summary: 'Maak een product aan'
       tags:
         - Product
       operationId: postProductCollection
-      summary: 'Creates a Product resource.'
       responses:
         201:
           description: 'Product resource created'
@@ -624,10 +624,10 @@ paths:
         description: 'The new Product resource'
   '/producten/{id}':
     get:
+      summary: 'Haal een specifiek product op'
       tags:
         - Product
       operationId: getProductItem
-      summary: 'Retrieves a Product resource.'
       parameters:
         -
           name: id
@@ -651,10 +651,10 @@ paths:
         404:
           description: 'Resource not found'
     put:
+      summary: 'Vervang een specifiek product'
       tags:
         - Product
       operationId: putProductItem
-      summary: 'Replaces the Product resource.'
       parameters:
         -
           name: id
@@ -692,10 +692,10 @@ paths:
               $ref: '#/components/schemas/Product'
         description: 'The updated Product resource'
     delete:
+      summary: 'Verwijder een specifiek product'
       tags:
         - Product
       operationId: deleteProductItem
-      summary: 'Removes the Product resource.'
       responses:
         204:
           description: 'Product resource deleted'
@@ -723,7 +723,7 @@ paths:
         400:
           description: 'Ongeldige aanvraag'
         404:
-          description: 'Huwelijk of aanvraag niet gevonden'
+          description: 'Product niet gevonden'
       tags:
         - Product
       operationId: logProductItem
@@ -736,7 +736,7 @@ paths:
             type: string
   '/producten/{id}/revert/{version}':
     post:
-      summary: 'Versie teruggedraaid'
+      summary: 'Versie teruggedraaien'
       description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
       consumes:
         - application/json
@@ -749,7 +749,7 @@ paths:
         400:
           description: 'Ongeldige aanvraag'
         404:
-          description: 'Huwelijk of aanvraag niet gevonden'
+          description: 'Product niet gevonden'
       tags:
         - Product
       operationId: revertProductItem
@@ -1048,13 +1048,33 @@ components:
           maxLength: 255
           minLength: 8
           example: john@do.nl
-          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+          description: 'Het emailadres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
         telefoonnummer:
           type: string
           maxLength: 255
           minLength: 10
           example: +31(0)6-12345678
           description: 'Het telefoon nummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>'
+        producten:
+          description: 'De Producten die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
+        productenExtras:
+          description: 'De Product extras die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
+        productenGroepen:
+          description: 'De Product groepen die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
+        users:
+          description: 'Gebruikers die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
         instellingen:
           title: Instellingen
           type: array
@@ -1121,7 +1141,7 @@ components:
           maxLength: 255
           minLength: 8
           example: john@do.nl
-          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+          description: 'Het emailadres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
         telefoonnummer:
           type: string
           maxLength: 255
@@ -1194,7 +1214,7 @@ components:
           maxLength: 255
           minLength: 8
           example: john@do.nl
-          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+          description: 'Het emailadres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
         telefoonnummer:
           type: string
           maxLength: 255
@@ -1237,16 +1257,16 @@ components:
           description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         bronOrganisatie:
-          description: 'De Organisatie waartoe dit product'
+          description: 'De Organisatie waartoe dit product behoort'
           type: string
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1351,13 +1371,13 @@ components:
           description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1444,13 +1464,13 @@ components:
           description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1636,13 +1656,13 @@ components:
         - beschrijving
     'User-user_user:read':
       type: object
-      description: 'A user, as unique signed in individual who might be a member of an organisation.'
+      description: 'Een user of applicatie is een unique geidentificeerde entiteit wat een onderdeel van een organisatie kan zijn.'
       properties:
         fullname:
           type: string
     'User-user_user:write':
       type: object
-      description: 'A user, as unique signed in individual who might be a member of an organisation.'
+      description: 'Een user of applicatie is een unique geidentificeerde entiteit wat een onderdeel van een organisatie kan zijn.'
       properties:
         fullname:
           type: string
@@ -1673,18 +1693,20 @@ tags:
   -
     name: Organisatie
     description: 'De Organisatie wordt gebruikt om standaard configuraties in te regelen'
-  -
-    name: User
-    description: 'Een gebruiker, of in dit geval een applicatie gebonden aan een JWT token behorende tot een organisatie'
 x-tagGroups:
   -
     name: Producten
     tags:
       - Product
+  -
+    name: 'Product Extra'
+    tags:
       - 'Product Extra'
+  -
+    name: 'Product Groep'
+    tags:
       - 'Product Groep'
   -
     name: Organisatie
     tags:
       - Organisatie
-      - User
