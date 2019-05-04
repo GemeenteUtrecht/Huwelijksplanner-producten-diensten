@@ -64,10 +64,8 @@ parameters:
               description: "Een extra optie op producten"
             - name: Product Groep
               description: "Een groep van producten "
-            - name: Organisatie
+            - name: Applicatie
               description: "De Organisatie wordt gebruikt om standaard configuraties in te regelen"  
-            - name: User
-              description: "Een gebruiker, of in dit geval een applicatie gebonden aan een JWT token behorende tot een organisatie"
               # Grouping the endopoint  
         x-tagGroups:
             - name: Producten
@@ -77,8 +75,7 @@ parameters:
               - Product Groep
             - name: Organisatie
               tags:
-              - Organisatie
-              - User
+              - Applicatie
         
 services:
     # default configuration for services in *this* file

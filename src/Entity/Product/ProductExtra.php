@@ -5,6 +5,10 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -126,12 +130,34 @@ class ProductExtra
 	public $identificatie;
 	
 	/**
-	 * De Organisatie waartoe dit product
+	 * Het RSIN van de organisatie waartoe deze Ambtenaar behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven
 	 *
-	 * @var \App\Entity\Organisatie
-	 * @ORM\ManyToOne(targetEntity="\App\Entity\Organisatie", cascade={"persist", "remove"}, inversedBy="productenExtras")
-	 * @ORM\JoinColumn(referencedColumnName="id")
-	 *
+	 * @var integer
+	 * @ORM\Column(
+	 *     type     = "integer",
+	 *     length   = 9
+	 * )
+	 * @Assert\Length(
+	 *      min = 8,
+	 *      max = 9,
+	 *      minMessage = "Het RSIN moet ten minste {{ limit }} karakters lang zijn",
+	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} karakters zijn"
+	 * )
+	 * @Groups({"read"})
+	 * @ApiFilter(SearchFilter::class, strategy="exact")
+	 * @ApiFilter(OrderFilter::class)
+	 * @ApiProperty(
+	 *     attributes={
+	 *         "openapi_context"={
+	 *             "title"="bronOrganisatie",
+	 *             "type"="string",
+	 *             "example"="123456789",
+	 *             "required"="true",
+	 *             "maxLength"=9,
+	 *             "minLength"=8
+	 *         }
+	 *     }
+	 * )
 	 */
 	public $bronOrganisatie;
 	
