@@ -1,11 +1,11 @@
 openapi: 3.0.2
 info:
   description: |
-    Welkom inovator!, 
-    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component 
+    Welkom inovator! <br>
+    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component. 
     
-    # Introduction                
-    De Trouwen component is ontwikkeld voor de gemeente Utrecht en heeft als doel het aansluiten [NLX](https://nlx.io/), volgens het [Common Ground](https://vng.nl/samen-organiseren/common-ground) principe, samen spelen, samen delen.
+    # Introductie                
+    Het producten en diensten component is ontwikkeld voor de gemeente Utrecht en is een producten- en dienstencatalogus. Je kan hier de diverse producten en diensten definiëren die te gebruiken zijn in verschillende processen. Dit component wordt vaak gebruikt met de betalen en orders componenten, maar dit is niet altijd noodzakelijk..
     
     # Common ground en open source
     Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden we zo veel mogenlijk informatie openbaar aan.  
@@ -20,7 +20,7 @@ info:
     Deze API is gedocumenteerd in het **OpenAPI format** 
     De API bevat Cross-Origin Resource Sharing (CORS) en is geimplementeerd volgen de [W3C spec](https://www.w3.org/TR/cors/) standaarden. De API staat cross-domain communicatie van de browser toe. Alle responses hebben een "wildcard same-origin" dit maakt ze volledig publiekelijk en toegankelijk voor iedereen. Dat geld voor elke code op elke site.
     
-    # Authentication
+    # Authenticatie
     
     producten en diensten heeft twee vormen van authenticatie:
       - API Key
@@ -712,10 +712,10 @@ paths:
         description: 'The updated ProductGroep resource'
   /producten:
     get:
+      summary: 'Haalt een verzameling van producten op'
       tags:
         - Product
       operationId: getProductCollection
-      summary: 'Retrieves the collection of Product resources.'
       responses:
         200:
           description: 'Product collection response'
@@ -759,10 +759,10 @@ paths:
           schema:
             type: string
     post:
+      summary: 'Maak een product aan'
       tags:
         - Product
       operationId: postProductCollection
-      summary: 'Creates a Product resource.'
       responses:
         201:
           description: 'Product resource created'
@@ -800,10 +800,10 @@ paths:
         description: 'The new Product resource'
   '/producten/{id}':
     get:
+      summary: 'Haal een specifiek product op'
       tags:
         - Product
       operationId: getProductItem
-      summary: 'Retrieves a Product resource.'
       parameters:
         -
           name: id
@@ -827,10 +827,10 @@ paths:
         404:
           description: 'Resource not found'
     put:
+      summary: 'Vervang een specifiek product'
       tags:
         - Product
       operationId: putProductItem
-      summary: 'Replaces the Product resource.'
       parameters:
         -
           name: id
@@ -868,10 +868,10 @@ paths:
               $ref: '#/components/schemas/Product'
         description: 'The updated Product resource'
     delete:
+      summary: 'Verwijder een specifiek product'
       tags:
         - Product
       operationId: deleteProductItem
-      summary: 'Removes the Product resource.'
       responses:
         204:
           description: 'Product resource deleted'
@@ -899,7 +899,7 @@ paths:
         400:
           description: 'Ongeldige aanvraag'
         404:
-          description: 'Huwelijk of aanvraag niet gevonden'
+          description: 'Product niet gevonden'
       tags:
         - Product
       operationId: logProductItem
@@ -912,7 +912,7 @@ paths:
             type: string
   '/producten/{id}/revert/{version}':
     post:
-      summary: 'Versie teruggedraaid'
+      summary: 'Versie teruggedraaien'
       description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
       consumes:
         - application/json
@@ -925,7 +925,7 @@ paths:
         400:
           description: 'Ongeldige aanvraag'
         404:
-          description: 'Huwelijk of aanvraag niet gevonden'
+          description: 'Product niet gevonden'
       tags:
         - Product
       operationId: revertProductItem
@@ -1283,13 +1283,13 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Ambtenaar behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1409,13 +1409,13 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Ambtenaar behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1509,13 +1509,13 @@ components:
           description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         agenda:
           type: url
@@ -1740,7 +1740,13 @@ x-tagGroups:
     name: Producten
     tags:
       - Product
+  -
+    name: 'Product Extra'
+    tags:
       - 'Product Extra'
+  -
+    name: 'Product Groep'
+    tags:
       - 'Product Groep'
   -
     name: Organisatie

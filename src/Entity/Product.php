@@ -42,6 +42,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/producten",
  *  		"openapi_context" = {
+ * 				"summary" = "Haalt een verzameling van producten op"
  *  		}
  *  	},
  *  	"post"={
@@ -49,6 +50,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/producten",
  *  		"openapi_context" = {
+ * 					"summary" = "Maak een product aan"
  *  		}
  *  	}
  *  },
@@ -58,6 +60,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/producten/{id}",
  *  		"openapi_context" = {
+ * 				"summary" = "Haal een specifiek product op"
  *  		}
  *  	},
  *     "put"={
@@ -65,6 +68,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/producten/{id}",
  *  		"openapi_context" = {
+ * 				"summary" = "Vervang een specifiek product"
  *  		}
  *  	},
  *     "delete"={
@@ -72,6 +76,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/producten/{id}",
  *  		"openapi_context" = {
+ * 				"summary" = "Verwijder een specifiek product"
  *  		}
  *  	},
  *     "log"={
@@ -98,7 +103,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *         				"description" = "Ongeldige aanvraag"
  *         			},
  *         			"404" = {
- *         				"description" = "Huwelijk of aanvraag niet gevonden"
+ *         				"description" = "Product niet gevonden"
  *         			}
  *            	}            
  *         }
@@ -110,7 +115,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
- *         		"summary" = "Versie teruggedraaid",
+ *         		"summary" = "Versie teruggedraaien",
  *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
  *          	"consumes" = {
  *              	"application/json",
@@ -127,7 +132,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *         				"description" = "Ongeldige aanvraag"
  *         			},
  *         			"404" = {
- *         				"description" = "Huwelijk of aanvraag niet gevonden"
+ *         				"description" = "Product niet gevonden"
  *         			}
  *            	}            
  *         }
@@ -218,7 +223,7 @@ class Product implements StringableInterface
 	 * )
 	 * @Assert\Length(
 	 *      max = 40,
-	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} karakters zijn"
+	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} tekens zijn"
 	 * )
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -227,7 +232,8 @@ class Product implements StringableInterface
 	 *             "type"="string",
 	 *             "example"="6a36c2c4-213e-4348-a467-dfa3a30f64aa",
 	 *             "description"="De unieke identificatie van dit object de organisatie die dit object heeft gecreeerd.",
-	 *             "maxLength"=40
+	 *             "maxLength"=40,
+	 * 			   "summary" = "Haal de identificatie van een product op"
 	 *         }
 	 *     }
 	 * )
@@ -268,7 +274,7 @@ class Product implements StringableInterface
 	public $bronOrganisatie;
 	
 	/**
-	 * De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -280,8 +286,8 @@ class Product implements StringableInterface
 	 * @Assert\Length(
 	 *      min = 5,
 	 *      max = 255,
-	 *      minMessage = "De naam moet tenminste {{ limit }} karakters lang zijn",
-	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn"
+	 *      minMessage = "De naam moet tenminste {{ limit }} tekens lang zijn",
+	 *      maxMessage = "De naam kan niet langer dan {{ limit }} tekens zijn"
 	 * )
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -297,7 +303,7 @@ class Product implements StringableInterface
 	public $naam;
 	
 	/**
-	 * Een samenvattende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
+	 * Een samenvattende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
 	 *
 	 * @var string
 	 *
@@ -308,8 +314,8 @@ class Product implements StringableInterface
 	 * @Assert\Length(
 	 *      min = 25,
 	 *      max = 2000,
-	 *      minMessage = "Your first name must be at least {{ limit }} characters long",
-	 *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
+	 *      minMessage = "De samenvatting moet minimaal {{ limit }} tekens bevatten",
+	 *      maxMessage = "De samenvatting mag maximaal {{ limit }} tekens bevatten")
 	 *
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -317,7 +323,7 @@ class Product implements StringableInterface
 	 *     attributes={
 	 *         "swagger_context"={
 	 *             "type"="string",
-	 *             "example"="Deze prachtige locatie is zeker het aanbevelen waard"
+	 *             "example"="Dit product is zeker het aanbevelen waard"
 	 *         }
 	 *     }
 	 * )
@@ -325,7 +331,7 @@ class Product implements StringableInterface
 	public $samenvatting;
 	
 	/**
-	 * Een beschrijvende tekst over deze locatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
+	 * Een beschrijvende tekst over dit product  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
 	 *
 	 * @var string
 	 *
@@ -336,8 +342,8 @@ class Product implements StringableInterface
 	 * @Assert\Length(
 	 *      min = 25,
 	 *      max = 2000,
-	 *      minMessage = "Your first name must be at least {{ limit }} characters long",
-	 *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
+	 *      minMessage = "De beschrijving moet minimaal {{ limit }} tekens bevatten",
+	 *      maxMessage = "De beschrijving mag maximaal {{ limit }} tekens bevatten")
 	 *
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -345,7 +351,7 @@ class Product implements StringableInterface
 	 *     attributes={
 	 *         "swagger_context"={
 	 *             "type"="string",
-	 *             "example"="Deze prachtige locatie is zeker het aanbevelen waard"
+	 *             "example"="Dit prachtige product is zeker de moeite waard"
 	 *         }
 	 *     }
 	 * )
