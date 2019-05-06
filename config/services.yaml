@@ -60,9 +60,9 @@ parameters:
               # The general endpoints  
             - name: Product
               description: "Een verkoopbaar product"
-            - name: Product Extra
+            - name: Extra
               description: "Een extra optie op producten"
-            - name: Product Groep
+            - name: Groep
               description: "Een groep van producten "
             - name: Applicatie
               description: "De Organisatie wordt gebruikt om standaard configuraties in te regelen"  
@@ -71,13 +71,9 @@ parameters:
             - name: Producten
               tags:
               - Product
-            - name: Product Extra
-              tags:
-              - Product Extra
-            - name: Product Groep
-              tags:
-              - Product Groep
-            - name: Organisatie
+              - Extra
+              - Groep
+            - name: Applicatie
               tags:
               - Applicatie
         

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Product;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Locatie
+ * product extra
  * 
  * Beschrijving
  * 
@@ -27,10 +27,91 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @version    	1.0
  *
  * @link   		http//:www.conduction.nl
- * @package		Commen Ground
+ * @package		Common Ground
  * @subpackage  Producten en Diensten
  * 
- * @ApiResource
+ *  @ApiResource( 
+ *  collectionOperations={
+ *  	"get"={
+ *  		"normalizationContext"={"groups"={"read"}},
+ *  		"denormalizationContext"={"groups"={"write"}},
+ *      	"path"="/extras",
+ *  		"openapi_context" = {
+ * 				"summary" = "Haalt een verzameling van producten op"
+ *  		}
+ *  	},
+ *  	"post"={
+ *  		"normalizationContext"={"groups"={"read"}},
+ *  		"denormalizationContext"={"groups"={"write"}},
+ *      	"path"="/extras",
+ *  		"openapi_context" = {
+ * 					"summary" = "Maak een product aan"
+ *  		}
+ *  	}
+ *  },
+ * 	itemOperations={
+ *     "get"={
+ *  		"normalizationContext"={"groups"={"read"}},
+ *  		"denormalizationContext"={"groups"={"write"}},
+ *      	"path"="/extras/{id}",
+ *  		"openapi_context" = {
+ * 				"summary" = "Haal een specifiek product op"
+ *  		}
+ *  	},
+ *     "put"={
+ *  		"normalizationContext"={"groups"={"read"}},
+ *  		"denormalizationContext"={"groups"={"write"}},
+ *      	"path"="/extras/{id}",
+ *  		"openapi_context" = {
+ * 				"summary" = "Vervang een specifiek product"
+ *  		}
+ *  	},
+ *     "delete"={
+ *  		"normalizationContext"={"groups"={"read"}},
+ *  		"denormalizationContext"={"groups"={"write"}},
+ *      	"path"="/extras/{id}",
+ *  		"openapi_context" = {
+ * 				"summary" = "Verwijder een specifiek product"
+ *  		}
+ *  	},
+ *     "log"={
+ *         	"method"="GET",
+ *         	"path"="/extras/{id}/log",
+ *          "controller"= HuwelijkController::class,
+ *     		"normalization_context"={"groups"={"read"}},
+ *     		"denormalization_context"={"groups"={"write"}},
+ *         	"openapi_context" = {
+ *         		"summary" = "Logboek inzien",
+ *         		"description" = "Geeft een array van eerdere versies en wijzigingen van dit object",
+ *          	"consumes" = {
+ *              	"application/json",
+ *               	"text/html",
+ *            	},
+ *             	"produces" = {
+ *         			"application/json"
+ *            	}
+ *         }
+ *     },
+ *     "revert"={
+ *         	"method"="POST",
+ *         	"path"="/extras/{id}/revert/{version}",
+ *          "controller"= HuwelijkController::class,
+ *     		"normalization_context"={"groups"={"read"}},
+ *     		"denormalization_context"={"groups"={"write"}},
+ *         	"openapi_context" = {
+ *         		"summary" = "Versie teruggedraaien",
+ *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
+ *          	"consumes" = {
+ *              	"application/json",
+ *               	"text/html",
+ *            	},
+ *             	"produces" = {
+ *         			"application/json"
+ *            	}
+ *         }
+ *     }
+ *  }
+ * )
  * @ORM\Entity
  * @Gedmo\Loggable(logEntryClass="ActivityLogBundle\Entity\LogEntry")
  * @ORM\HasLifecycleCallbacks
@@ -40,11 +121,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * )
  */
 
-class ProductGroep
+class Extra
 {
 	
 	/**
-	 * Het identificatie nummer van deze Locatie <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * Het identificatie nummer van deze product extra <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var int|null
 	 *
@@ -245,6 +326,69 @@ class ProductGroep
 	 **/
 	public $beschrijving;
 	
+	
+	/**
+	 * @var integer The non decimal value for the price of this product (excluding tax)
+	 *
+	 * @ORM\Column(type="integer",
+	 *     nullable=true)
+	 * @Assert\Type(
+	 *     type="integer",
+	 *     message="The value {{ value }} is not a valid {{ type }}."
+	 * )
+	 * @Groups({"read", "write"})
+	 */
+	public $exclAmount = 0;
+	
+	/**
+	 * @var integer The the percentage of the on this product, in percentage so 1% = 1, and not 0,01
+	 *
+	 * @ORM\Column(type="integer",
+	 *     nullable=true)
+	 * @Assert\Type(
+	 *     type="integer",
+	 *     message="The value {{ value }} is not a valid {{ type }}."
+	 * )
+	 * @Groups({"read", "write"})
+	 */
+	public $taxPercentage = 0;
+	
+	/**
+	 * @var integer The non decimal value for the tax o this product
+	 *
+	 * @ORM\Column(type="integer",
+	 *     nullable=true)
+	 * @Assert\Type(
+	 *     type="integer",
+	 *     message="The value {{ value }} is not a valid {{ type }}."
+	 * )
+	 * @Groups({"read"})
+	 */
+	public $taxAmount = 0;
+	
+	/**
+	 * @var integer The non decimal value for the price of this product (including tax)
+	 *
+	 * @ORM\Column(type="integer",
+	 *     nullable=true)
+	 * @Assert\Type(
+	 *     type="integer",
+	 *     message="The value {{ value }} is not a valid {{ type }}."
+	 * )
+	 * @Groups({"read"})
+	 */
+	public $inclAmount = 0;
+	
+	/**
+	 * @var string The base currency of this product
+	 *
+	 * @ORM\Column(length=64,
+	 *     nullable=true)
+	 * @Assert\Currency
+	 * @Groups({"read", "write"})
+	 */
+	public $currency = "EUR";
+		
 	/**
 	 * De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
 	 *
@@ -272,7 +416,7 @@ class ProductGroep
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Product[]
 	 *
-	 * @ORM\ManyToMany(targetEntity="\App\Entity\Product", mappedBy="groepen")
+	 * @ORM\ManyToMany(targetEntity="\App\Entity\Product", mappedBy="extras")
 	 * @Groups({"read"})
 	 *
 	 */

@@ -94,18 +94,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *            	},
  *             	"produces" = {
  *         			"application/json"
- *            	},
- *             	"responses" = {
- *         			"200" = {
- *         				"description" = "Een overzicht van versies"
- *         			},	
- *         			"400" = {
- *         				"description" = "Ongeldige aanvraag"
- *         			},
- *         			"404" = {
- *         				"description" = "Product niet gevonden"
- *         			}
- *            	}            
+ *            	}
  *         }
  *     },
  *     "revert"={
@@ -123,18 +112,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *            	},
  *             	"produces" = {
  *         			"application/json"
- *            	},
- *             	"responses" = {
- *         			"202" = {
- *         				"description" = "Teruggedraaid naar eerdere versie"
- *         			},	
- *         			"400" = {
- *         				"description" = "Ongeldige aanvraag"
- *         			},
- *         			"404" = {
- *         				"description" = "Product niet gevonden"
- *         			}
- *            	}            
+ *            	}
  *         }
  *     }
  *  }
@@ -461,10 +439,20 @@ class Product implements StringableInterface
 	/**
 	 * De product groepen waartoe dit product behoort.
 	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Product\ProductGroep[]
+	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Groep[]
 	 *
-     * @ApiSubresource(maxDepth=1)
-	 * @ORM\ManyToMany(targetEntity="\App\Entity\Product\ProductGroep", inversedBy="producten")
+	 * @Groups({"read"})
+	 * @ORM\ManyToMany(targetEntity="\App\Entity\Groep", inversedBy="producten")
+	 * @ApiProperty(
+	 *     attributes={
+	 *         "openapi_context"={
+	 *             "title"="groepen",
+	 *             "type"="array",
+	 *             "example"="[]",
+	 *             "description"="Producten die bij deze locatie horen"
+	 *         }
+	 *     }
+	 * )
 	 *
 	 */
 	public $groepen;
@@ -472,10 +460,20 @@ class Product implements StringableInterface
 	/**
 	 * De product extras die voor dit product beschikbaar zijn.
 	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Product\ProductExtra[]
+	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Extra[]
 	 *
-	 * @ApiSubresource(maxDepth=1)
-	 * @ORM\ManyToMany(targetEntity="\App\Entity\Product\ProductExtra", inversedBy="producten")
+	 * @Groups({"read"})
+	 * @ORM\ManyToMany(targetEntity="\App\Entity\Extra", inversedBy="producten")
+	 * @ApiProperty(
+	 *     attributes={
+	 *         "openapi_context"={
+	 *             "title"="extras",
+	 *             "type"="array",
+	 *             "example"="[]",
+	 *             "description"="Producten die bij deze locatie horen"
+	 *         }
+	 *     }
+	 * )
 	 *
 	 */
 	public $extras;	
@@ -492,7 +490,7 @@ class Product implements StringableInterface
 	 * @ApiProperty(
 	 *     attributes={
 	 *         "openapi_context"={
-	 *             "title"="producten",
+	 *             "title"="locaties",
 	 *             "type"="array",
 	 *             "example"="[]",
 	 *             "description"="Producten die bij deze locatie horen"
@@ -514,7 +512,7 @@ class Product implements StringableInterface
 	 * @ApiProperty(
 	 *     attributes={
 	 *         "openapi_context"={
-	 *             "title"="producten",
+	 *             "title"="ambtenaren",
 	 *             "type"="array",
 	 *             "example"="[]",
 	 *             "description"="Producten die bij deze locatie horen"

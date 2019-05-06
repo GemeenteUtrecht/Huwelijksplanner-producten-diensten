@@ -59,14 +59,6 @@ use App\Controller\UserController;
  *            	},
  *             	"produces" = {
  *         			"application/json"
- *            	},
- *             	"responses" = {
- *         			"201" = {
- *         				"description" = "Applicatie aangemaakt"
- *         			},
- *         			"400" = {
- *         				"description" = "Ongeldige aanvraag"
- *         			}
  *            	}
  *         }
  *     },
@@ -85,14 +77,6 @@ use App\Controller\UserController;
  *            	},
  *             	"produces" = {
  *         			"application/json"
- *            	},
- *             	"responses" = {
- *         			"200" = {
- *         				"description" = "Applicatie succesvol ingeloged"
- *         			},
- *         			"401" = {
- *         				"description" = "Applicatie niet ingeloged"
- *         			}
  *            	}
  *         }
  *     },
@@ -113,18 +97,7 @@ use App\Controller\UserController;
  *      	"path"="/applicatie/{id}",
  *  		"openapi_context" = {
  * 				"summary" = "Werk bij",
- *         		"description" = "Werk een Applicatie bij",
- *             	"responses" = {
- *         			"202" = {
- *         				"description" = "applicatie bijgewerkt"
- *         			},	
- *         			"400" = {
- *         				"description" = "Ongeldige aanvraag"
- *         			},
- *         			"404" = {
- *         				"description" = "Applicatie niet gevonden"
- *         			}
- *            	}            
+ *         		"description" = "Werk een Applicatie bij"
  *  		}
  *  	},
  *     "log"={
