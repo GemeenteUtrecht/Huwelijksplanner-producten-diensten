@@ -337,6 +337,67 @@ class Product implements StringableInterface
 	public $beschrijving;
 	
 	/**
+	 * @var string The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group
+	 *
+	 * @ORM\Column
+	 * @ApiProperty(
+	 *     attributes={
+	 *         "openapi_context"={
+	 *             "type"="string",
+	 *             "enum"={"simple", "set", "virtual","external","ticket","variable","subscription"},
+	 *             "example"="simple",
+	 *             "required"="true"
+	 *         }
+	 *     }
+	 * )
+	 * @Assert\NotBlank
+	 * @Assert\Choice(
+	 *     choices = { "simple", "set", "virtual","external","ticket","variable","subscription"},
+	 *     message = "Choose either simple,set,virtual,external,ticket,variable or subscription"
+	 * )
+	 * @ApiFilter(SearchFilter::class, strategy="exact")
+	 * @ApiFilter(OrderFilter::class)
+	 * @Groups({"read", "write"})
+	 */
+	public $type;
+	
+	/**
+	 * @var OrderLine[] A grouped product is a cluster of simple products clubbed together to form a single entity. The grouped product won’t have a price or a unique identifier of its own. The identity of the grouped product is created by a number of child products that have unique features of their own. As soon as you create a grouped product, you can add at least one child product to the grouped product. Your customers can purchase any of the child product from the grouped product individually as well. eg: A set of six glasses.
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="sets")
+	 */
+	public $groupedProducts;
+	
+	/**
+	 * @var OrderLine[] A product can be part of a set in wich it is sold combined with order products.
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="groupedProducts")
+	 */
+	public $sets;
+	
+	/**
+	 * @var OrderLine[] This product type lets you add variations to the same product to create a complex, variable product. Each variation of the product has its own price, SKU, available stock etc. eg: A shirt or t-shirt with different sizes and different colors.
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="parent")
+	 */
+	public $variations;
+	
+	/**
+	 * @var Organisation The Organisation that sells this product.
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="variations")
+	 */
+	public $parent;
+	
+	/**
 	 * URL-referentie naar de agenda van dit product
 	 *
 	 * @ORM\Column(
