@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -358,6 +360,11 @@ class Groep
 	 *
 	 */
 	public $producten;
+
+    public function __construct()
+    {
+        $this->producten = new ArrayCollection();
+    }
 	
 	/**
 	 * Add Product
@@ -366,11 +373,11 @@ class Groep
 	 * @return Order
 	 */
 	public function addProduct(\App\Entity\Product $product)
-	{
-		$this->products[] = $product;
-		
-		return $this;
-	}
+                                                                        	{
+                                                                        		$this->products[] = $product;
+                                                                        		
+                                                                        		return $this;
+                                                                        	}
 	
 	/**
 	 * Remove Product
@@ -378,9 +385,9 @@ class Groep
 	 * @param \App\Entity\Product $product
 	 */
 	public function removeProduct(\App\Entity\Product $product)
-	{
-		$this->products->removeElement($product);
-	}
+                                                                        	{
+                                                                        		$this->products->removeElement($product);
+                                                                        	}
 	
 	/**
 	 * Get Product
@@ -388,12 +395,141 @@ class Groep
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
 	public function getProducts()
-	{
-		return $this->products;
-	}
+                                                                        	{
+                                                                        		return $this->products;
+                                                                        	}
 
 	public function getUrl()
-	{
-		return 'http://producten_en_diensten.demo.zaakonline.nl/groepen/'.$this->id;
-	}
+                                                                        	{
+                                                                        		return 'http://producten_en_diensten.demo.zaakonline.nl/groepen/'.$this->id;
+                                                                        	}
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAfbeelding(): ?string
+    {
+        return $this->afbeelding;
+    }
+
+    public function setAfbeelding(?string $afbeelding): self
+    {
+        $this->afbeelding = $afbeelding;
+
+        return $this;
+    }
+
+    public function getFilm(): ?string
+    {
+        return $this->film;
+    }
+
+    public function setFilm(?string $film): self
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    public function getIdentificatie(): ?string
+    {
+        return $this->identificatie;
+    }
+
+    public function setIdentificatie(string $identificatie): self
+    {
+        $this->identificatie = $identificatie;
+
+        return $this;
+    }
+
+    public function getBronOrganisatie(): ?int
+    {
+        return $this->bronOrganisatie;
+    }
+
+    public function setBronOrganisatie(int $bronOrganisatie): self
+    {
+        $this->bronOrganisatie = $bronOrganisatie;
+
+        return $this;
+    }
+
+    public function getNaam(): ?string
+    {
+        return $this->naam;
+    }
+
+    public function setNaam(string $naam): self
+    {
+        $this->naam = $naam;
+
+        return $this;
+    }
+
+    public function getSamenvatting(): ?string
+    {
+        return $this->samenvatting;
+    }
+
+    public function setSamenvatting(string $samenvatting): self
+    {
+        $this->samenvatting = $samenvatting;
+
+        return $this;
+    }
+
+    public function getBeschrijving(): ?string
+    {
+        return $this->beschrijving;
+    }
+
+    public function setBeschrijving(string $beschrijving): self
+    {
+        $this->beschrijving = $beschrijving;
+
+        return $this;
+    }
+
+    public function getTaal(): ?string
+    {
+        return $this->taal;
+    }
+
+    public function setTaal(string $taal): self
+    {
+        $this->taal = $taal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducten(): Collection
+    {
+        return $this->producten;
+    }
+
+    public function addProducten(Product $producten): self
+    {
+        if (!$this->producten->contains($producten)) {
+            $this->producten[] = $producten;
+            $producten->addGroepen($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProducten(Product $producten): self
+    {
+        if ($this->producten->contains($producten)) {
+            $this->producten->removeElement($producten);
+            $producten->removeGroepen($this);
+        }
+
+        return $this;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -644,21 +645,31 @@ class Product implements StringableInterface
 	 * @Groups({"read"})
 	 */
 	public $eigenaar;
+
+    public function __construct()
+    {
+        $this->extras = new ArrayCollection();
+        $this->leverbaarBij = new ArrayCollection();
+        $this->producten = new ArrayCollection();
+        $this->sets = new ArrayCollection();
+        $this->variaties = new ArrayCollection();
+        $this->groepen = new ArrayCollection();
+    }
 	
 	/**
 	 * @return string
 	 */
 	public function toString(){
-		return $this->naam;
-	}
+                                                                                                                                                                                                                           		return $this->naam;
+                                                                                                                                                                                                                           	}
 	
 	/**
 	 * Vanuit rendering perspectief (voor bijvoorbeeld logging of berichten) is het belangrijk dat we een entiteit altijd naar string kunnen omzetten.
 	 */
 	public function __toString()
-	{
-		return $this->toString();
-	}
+                                                                                                                                                                                                                           	{
+                                                                                                                                                                                                                           		return $this->toString();
+                                                                                                                                                                                                                           	}
 	
 	/**
 	 * The pre persist function is called when the enity is first saved to the database and allows us to set some additional first values
@@ -666,19 +677,460 @@ class Product implements StringableInterface
 	 * @ORM\PrePersist
 	 */
 	public function prePersist()
-	{
-		$this->registratieDatum = new \ Datetime();
-		// We want to add some default stuff here like products, productgroups, paymentproviders, templates, clientGroups, mailinglists and ledgers
-		return $this;
-	}
-	
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+                                                                                                                                                                                                                           	{
+                                                                                                                                                                                                                           		$this->registratieDatum = new \ Datetime();
+                                                                                                                                                                                                                           		// We want to add some default stuff here like products, productgroups, paymentproviders, templates, clientGroups, mailinglists and ledgers
+                                                                                                                                                                                                                           		return $this;
+                                                                                                                                                                                                                           	}
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
 	public function getUrl()
-	{
-		return 'http://producten_en_diensten.demo.zaakonline.nl/producten/'.$this->id;
-	}
+                                                                                                                                                                                                                           	{
+                                                                                                                                                                                                                           		return 'http://producten_en_diensten.demo.zaakonline.nl/producten/'.$this->id;
+                                                                                                                                                                                                                           	}
+
+    public function getAfbeelding(): ?string
+    {
+        return $this->afbeelding;
+    }
+
+    public function setAfbeelding(?string $afbeelding): self
+    {
+        $this->afbeelding = $afbeelding;
+
+        return $this;
+    }
+
+    public function getFilm(): ?string
+    {
+        return $this->film;
+    }
+
+    public function setFilm(?string $film): self
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    public function getIdentificatie(): ?string
+    {
+        return $this->identificatie;
+    }
+
+    public function setIdentificatie(?string $identificatie): self
+    {
+        $this->identificatie = $identificatie;
+
+        return $this;
+    }
+
+    public function getBronOrganisatie(): ?int
+    {
+        return $this->bronOrganisatie;
+    }
+
+    public function setBronOrganisatie(int $bronOrganisatie): self
+    {
+        $this->bronOrganisatie = $bronOrganisatie;
+
+        return $this;
+    }
+
+    public function getNaam(): ?string
+    {
+        return $this->naam;
+    }
+
+    public function setNaam(string $naam): self
+    {
+        $this->naam = $naam;
+
+        return $this;
+    }
+
+    public function getSamenvatting(): ?string
+    {
+        return $this->samenvatting;
+    }
+
+    public function setSamenvatting(string $samenvatting): self
+    {
+        $this->samenvatting = $samenvatting;
+
+        return $this;
+    }
+
+    public function getBeschrijving(): ?string
+    {
+        return $this->beschrijving;
+    }
+
+    public function setBeschrijving(string $beschrijving): self
+    {
+        $this->beschrijving = $beschrijving;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getLosLeverbaar(): ?bool
+    {
+        return $this->losLeverbaar;
+    }
+
+    public function setLosLeverbaar(bool $losLeverbaar): self
+    {
+        $this->losLeverbaar = $losLeverbaar;
+
+        return $this;
+    }
+
+    public function getPrijsExcl(): ?int
+    {
+        return $this->prijsExcl;
+    }
+
+    public function setPrijsExcl(?int $prijsExcl): self
+    {
+        $this->prijsExcl = $prijsExcl;
+
+        return $this;
+    }
+
+    public function getBelastingPercentage(): ?int
+    {
+        return $this->belastingPercentage;
+    }
+
+    public function setBelastingPercentage(?int $belastingPercentage): self
+    {
+        $this->belastingPercentage = $belastingPercentage;
+
+        return $this;
+    }
+
+    public function getPrijsBelasting(): ?int
+    {
+        return $this->prijsBelasting;
+    }
+
+    public function setPrijsBelasting(?int $prijsBelasting): self
+    {
+        $this->prijsBelasting = $prijsBelasting;
+
+        return $this;
+    }
+
+    public function getPrijsIncl(): ?int
+    {
+        return $this->prijsIncl;
+    }
+
+    public function setPrijsIncl(?int $prijsIncl): self
+    {
+        $this->prijsIncl = $prijsIncl;
+
+        return $this;
+    }
+
+    public function getValuta(): ?string
+    {
+        return $this->valuta;
+    }
+
+    public function setValuta(?string $valuta): self
+    {
+        $this->valuta = $valuta;
+
+        return $this;
+    }
+
+    public function getBeschikbaar(): ?\DateTimeInterface
+    {
+        return $this->beschikbaar;
+    }
+
+    public function setBeschikbaar(\DateTimeInterface $beschikbaar): self
+    {
+        $this->beschikbaar = $beschikbaar;
+
+        return $this;
+    }
+
+    public function getLocaties(): ?array
+    {
+        return $this->locaties;
+    }
+
+    public function setLocaties(?array $locaties): self
+    {
+        $this->locaties = $locaties;
+
+        return $this;
+    }
+
+    public function getAmbtenaren(): ?array
+    {
+        return $this->ambtenaren;
+    }
+
+    public function setAmbtenaren(?array $ambtenaren): self
+    {
+        $this->ambtenaren = $ambtenaren;
+
+        return $this;
+    }
+
+    public function getTaal(): ?string
+    {
+        return $this->taal;
+    }
+
+    public function setTaal(string $taal): self
+    {
+        $this->taal = $taal;
+
+        return $this;
+    }
+
+    public function getRegistratiedatum(): ?\DateTimeInterface
+    {
+        return $this->registratiedatum;
+    }
+
+    public function setRegistratiedatum(\DateTimeInterface $registratiedatum): self
+    {
+        $this->registratiedatum = $registratiedatum;
+
+        return $this;
+    }
+
+    public function getWijzigingsdatum(): ?\DateTimeInterface
+    {
+        return $this->wijzigingsdatum;
+    }
+
+    public function setWijzigingsdatum(?\DateTimeInterface $wijzigingsdatum): self
+    {
+        $this->wijzigingsdatum = $wijzigingsdatum;
+
+        return $this;
+    }
+
+    public function getContactPersoon(): ?string
+    {
+        return $this->contactPersoon;
+    }
+
+    public function setContactPersoon(?string $contactPersoon): self
+    {
+        $this->contactPersoon = $contactPersoon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getExtras(): Collection
+    {
+        return $this->extras;
+    }
+
+    public function addExtra(Product $extra): self
+    {
+        if (!$this->extras->contains($extra)) {
+            $this->extras[] = $extra;
+        }
+
+        return $this;
+    }
+
+    public function removeExtra(Product $extra): self
+    {
+        if ($this->extras->contains($extra)) {
+            $this->extras->removeElement($extra);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getLeverbaarBij(): Collection
+    {
+        return $this->leverbaarBij;
+    }
+
+    public function addLeverbaarBij(Product $leverbaarBij): self
+    {
+        if (!$this->leverbaarBij->contains($leverbaarBij)) {
+            $this->leverbaarBij[] = $leverbaarBij;
+            $leverbaarBij->addExtra($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeverbaarBij(Product $leverbaarBij): self
+    {
+        if ($this->leverbaarBij->contains($leverbaarBij)) {
+            $this->leverbaarBij->removeElement($leverbaarBij);
+            $leverbaarBij->removeExtra($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducten(): Collection
+    {
+        return $this->producten;
+    }
+
+    public function addProducten(Product $producten): self
+    {
+        if (!$this->producten->contains($producten)) {
+            $this->producten[] = $producten;
+        }
+
+        return $this;
+    }
+
+    public function removeProducten(Product $producten): self
+    {
+        if ($this->producten->contains($producten)) {
+            $this->producten->removeElement($producten);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getSets(): Collection
+    {
+        return $this->sets;
+    }
+
+    public function addSet(Product $set): self
+    {
+        if (!$this->sets->contains($set)) {
+            $this->sets[] = $set;
+            $set->addProducten($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSet(Product $set): self
+    {
+        if ($this->sets->contains($set)) {
+            $this->sets->removeElement($set);
+            $set->removeProducten($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getVariaties(): Collection
+    {
+        return $this->variaties;
+    }
+
+    public function addVariaty(Product $variaty): self
+    {
+        if (!$this->variaties->contains($variaty)) {
+            $this->variaties[] = $variaty;
+            $variaty->setMoeder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariaty(Product $variaty): self
+    {
+        if ($this->variaties->contains($variaty)) {
+            $this->variaties->removeElement($variaty);
+            // set the owning side to null (unless already changed)
+            if ($variaty->getMoeder() === $this) {
+                $variaty->setMoeder(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMoeder(): ?self
+    {
+        return $this->moeder;
+    }
+
+    public function setMoeder(?self $moeder): self
+    {
+        $this->moeder = $moeder;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groep[]
+     */
+    public function getGroepen(): Collection
+    {
+        return $this->groepen;
+    }
+
+    public function addGroepen(Groep $groepen): self
+    {
+        if (!$this->groepen->contains($groepen)) {
+            $this->groepen[] = $groepen;
+        }
+
+        return $this;
+    }
+
+    public function removeGroepen(Groep $groepen): self
+    {
+        if ($this->groepen->contains($groepen)) {
+            $this->groepen->removeElement($groepen);
+        }
+
+        return $this;
+    }
+
+    public function getEigenaar(): ?Applicatie
+    {
+        return $this->eigenaar;
+    }
+
+    public function setEigenaar(?Applicatie $eigenaar): self
+    {
+        $this->eigenaar = $eigenaar;
+
+        return $this;
+    }
 }
