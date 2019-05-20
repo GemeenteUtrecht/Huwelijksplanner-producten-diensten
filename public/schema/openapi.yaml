@@ -70,7 +70,7 @@ paths:
   '/applicatie/{id}':
     get:
       summary: 'Haal op'
-      description: 'Haal een Applicatie op'
+      description: 'Haal een Applicatie op.'
       tags:
         - Applicatie
       operationId: getApplicatieItem
@@ -98,7 +98,7 @@ paths:
           description: 'Resource not found'
     put:
       summary: 'Werk bij'
-      description: 'Werk een Applicatie bij'
+      description: 'Werk een Applicatie bij.'
       tags:
         - Applicatie
       operationId: putApplicatieItem
@@ -141,7 +141,7 @@ paths:
   '/applicatie/{id}/log':
     get:
       summary: Logboek
-      description: 'Bekijk de wijzigingen op dit Applicatie object'
+      description: 'Bekijk de wijzigingen op dit Applicatie object.'
       tags:
         - Applicatie
       operationId: logApplicatieItem
@@ -857,7 +857,7 @@ paths:
   /login_check:
     post:
       summary: 'Token halen'
-      description: 'Inloggen als Applicatie en JWT Token ophalen'
+      description: 'Inloggen als Applicatie en JWT Token ophalen.'
       tags:
         - Applicatie
       operationId: loginApplicatieCollection
@@ -939,7 +939,29 @@ paths:
           style: form
           explode: true
         -
+          name: type
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'type[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: 'order[bronOrganisatie]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'order[type]'
           in: query
           required: false
           schema:
@@ -1154,7 +1176,7 @@ paths:
   /registreer:
     post:
       summary: Registreren
-      description: 'Registreer een nieuwe Applicatie voor dit component'
+      description: 'Registreer een nieuwe Applicatie voor dit component.'
       tags:
         - Applicatie
       operationId: registerApplicatieCollection
@@ -1227,10 +1249,10 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Applicatie behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef.'
         isActief:
-          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden'
+          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden.'
           type: boolean
         registratiedatum:
-          description: 'Het tijdstip waarop deze Applicatie is aangemaakt'
+          description: 'Het tijdstip waarop deze Applicatie is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1293,10 +1315,10 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Applicatie behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef.'
         isActief:
-          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden'
+          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden.'
           type: boolean
         registratiedatum:
-          description: 'Het tijdstip waarop deze Applicatie is aangemaakt'
+          description: 'Het tijdstip waarop deze Applicatie is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1753,6 +1775,36 @@ components:
         beschrijving:
           description: 'Een uitgebreide beschrijvende tekst over dit Product bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
+        type:
+          type: string
+          enum:
+            - simple
+            - set
+            - virtual
+            - external
+            - ticket
+            - variable
+            - subscription
+          example: simple
+          required: 'true'
+          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
+        groupedProducts:
+          type: array
+          items:
+            type: string
+        sets:
+          description: 'A product can be part of a set in wich it is sold combined with order products.'
+          type: array
+          items:
+            type: string
+        variations:
+          description: 'This product type lets you add variations to the same product to create a complex, variable product. Each variation of the product has its own price, SKU, available stock etc. eg: A shirt or t-shirt with different sizes and different colors.'
+          type: array
+          items:
+            type: string
+        parent:
+          description: 'The Organisation that sells this product.'
+          type: string
         agenda:
           type: url
           example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
@@ -1839,6 +1891,7 @@ components:
         - naam
         - samenvatting
         - beschrijving
+        - type
     Product-read:
       type: object
       description: Product
@@ -1886,6 +1939,19 @@ components:
         beschrijving:
           description: 'Een uitgebreide beschrijvende tekst over dit Product bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
+        type:
+          type: string
+          enum:
+            - simple
+            - set
+            - virtual
+            - external
+            - ticket
+            - variable
+            - subscription
+          example: simple
+          required: 'true'
+          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
         agenda:
           type: url
           example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
@@ -1966,6 +2032,7 @@ components:
         - naam
         - samenvatting
         - beschrijving
+        - type
     Product-write:
       type: object
       description: Product
@@ -2001,6 +2068,19 @@ components:
         beschrijving:
           description: 'Een uitgebreide beschrijvende tekst over dit Product bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
+        type:
+          type: string
+          enum:
+            - simple
+            - set
+            - virtual
+            - external
+            - ticket
+            - variable
+            - subscription
+          example: simple
+          required: 'true'
+          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
         agenda:
           type: url
           example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
@@ -2046,6 +2126,7 @@ components:
         - naam
         - samenvatting
         - beschrijving
+        - type
   securitySchemes:
     apiKey:
       type: apiKey

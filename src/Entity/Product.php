@@ -104,7 +104,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
- *         		"summary" = "Versie teruggedraaien",
+ *         		"summary" = "Versie herstellen",
  *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
  *          	"consumes" = {
  *              	"application/json",
@@ -191,7 +191,7 @@ class Product implements StringableInterface
 	public $film;
 	
 	/**
-	 * De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var string
 	 * @ORM\Column(
@@ -209,7 +209,7 @@ class Product implements StringableInterface
 	 *         "openapi_context"={
 	 *             "type"="string",
 	 *             "example"="6a36c2c4-213e-4348-a467-dfa3a30f64aa",
-	 *             "description"="De unieke identificatie van dit object de organisatie die dit object heeft gecreeerd.",
+	 *             "description"="De unieke identificatie van dit object de organisatie die dit object heeft gecreëerd.",
 	 *             "maxLength"=40,
 	 * 			   "summary" = "Haal de identificatie van een product op"
 	 *         }
@@ -220,7 +220,7 @@ class Product implements StringableInterface
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven
+	 * Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven
 	 *
 	 * @var integer
 	 * @ORM\Column(
@@ -362,7 +362,7 @@ class Product implements StringableInterface
 	public $type;
 	
 	/**
-	 * @var OrderLine[] A grouped product is a cluster of simple products clubbed together to form a single entity. The grouped product won�t have a price or a unique identifier of its own. The identity of the grouped product is created by a number of child products that have unique features of their own. As soon as you create a grouped product, you can add at least one child product to the grouped product. Your customers can purchase any of the child product from the grouped product individually as well. eg: A set of six glasses.
+	 * @var OrderLine[] A grouped product is a cluster of simple products clubbed together to form a single entity. The grouped product won�t have a price or a unique identifier of its own. The identity of the grouped product is created by a number of child products that have unique features of their own. As soon as you create a grouped product, you can add at least one child product to the grouped product. Your customers can purchase any of the child product from the grouped product individually as well. eg: A set of six glasses.
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
@@ -398,7 +398,7 @@ class Product implements StringableInterface
 	public $parent;
 	
 	/**
-	 * URL-referentie naar de agenda van dit product
+	 * URL-referentie naar de agenda van dit product.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -423,7 +423,7 @@ class Product implements StringableInterface
 	
 	
 	/**
-	 * @var integer The non decimal value for the price of this product (excluding tax)
+	 * @var integer De niet-decimale waarde voor de prijs van dit product (exclusief btw).
 	 *
 	 * @ORM\Column(type="integer", 
 	 *     nullable=true)
@@ -436,7 +436,7 @@ class Product implements StringableInterface
 	public $exclAmount = 0;
 	
 	/**
-	 * @var integer The the percentage of the on this product, in percentage so 1% = 1, and not 0,01
+	 * @var integer Het percentage van de belasting op dit product, in percentage dus 1% = 1, en niet 0,01.
 	 *
 	 * @ORM\Column(type="integer", 
 	 *     nullable=true)
@@ -449,7 +449,7 @@ class Product implements StringableInterface
 	public $taxPercentage = 0;
 	
 	/**
-	 * @var integer The non decimal value for the tax o this product
+	 * @var integer De niet-decimale waarde voor de belasting van dit product.
 	 *
 	 * @ORM\Column(type="integer", 
 	 *     nullable=true)
@@ -462,7 +462,7 @@ class Product implements StringableInterface
 	public $taxAmount = 0;
 	
 	/**
-	 * @var integer The non decimal value for the price of this product (including tax)
+	 * @var integer De niet-decimale waarde voor de prijs van dit product (inclusief btw).
 	 *
 	 * @ORM\Column(type="integer", 
 	 *     nullable=true)
@@ -475,7 +475,7 @@ class Product implements StringableInterface
 	public $inclAmount = 0;
 	
 	/**
-	 * @var string The base currency of this product
+	 * @var string De basisvaluta van dit product.
 	 *
 	 * @ORM\Column(length=64, 
 	 *     nullable=true)
@@ -485,7 +485,7 @@ class Product implements StringableInterface
 	public $currency = "EUR";
 	
 	/**
-	 * Eerste volgende datum waarop dit product beschikbaar is.
+	 * Eerstvolgende datum waarop dit product beschikbaar is.
 	 * 
 	 * @var string Een "Y-m-d H:i:s" waarde bijv. "2018-12-31 13:33:05" ofwel "Jaar-dag-maan uur:minut:seconde"
 	 * @Gedmo\Timestampable(on="create")
@@ -498,7 +498,7 @@ class Product implements StringableInterface
 	public $beschikbaar;
 	
 	/**
-	 * De product groepen waartoe dit product behoort.
+	 * De product groepen waartoe dit product behoord.
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Groep[]
 	 *
@@ -519,7 +519,7 @@ class Product implements StringableInterface
 	public $groepen;
 	
 	/**
-	 * De product extras die voor dit product beschikbaar zijn.
+	 * De product extra's die voor dit product beschikbaar zijn.
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Extra[]
 	 *
@@ -633,7 +633,7 @@ class Product implements StringableInterface
 	public $wijzigingsdatum;
 	
 	/**
-	 * Het contact persoon voor dit Product
+	 * De contactpersoon voor dit Product
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
