@@ -27,6 +27,8 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	done
 	
 	if [ "$APP_ENV" != 'prod' ]; then
+		# clear the database		
+		# bin/console doctrine:schema:drop --full-database --force
 		# Let clear the cash
 		bin/console cache:clear --no-warmup 
 		bin/console doctrine:cache:clear-metadata 
@@ -34,6 +36,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		bin/console doctrine:cache:clear-result
 		# Lets make sure the database is in order
 		bin/console doctrine:schema:update --force --no-interaction
+		
 		# Lets reset the database and load example data
 		# bin/console doctrine:fixtures:load --no-interaction 
 	fi

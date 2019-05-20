@@ -8,7 +8,7 @@ info:
     Word lid van het slackkanaal [https://zaakonline.slack.com](https://zaakonline.slack.com) voor ondersteuning door het ontwikkel team. En krijg regelmatig updates over de ontwikkelingen op het gebied van de zaakonline componenten.
     
     # Common ground en open source
-                    Om het voor alle partijen zo makkelijk mogelijk te maken, stellen we zo veel mogelijk informatie over dit component openbaar beschikbaar.
+    Om het voor alle partijen zo makkelijk mogelijk te maken, stellen we zo veel mogelijk informatie over dit component openbaar beschikbaar.
     - [datamodel als pdf](/schema/datamodel.pdf)
     - [datamodel als mwb](/schema/datamodel.mwb)
     - [codebase op github](https://github.com/GemeenteUtrecht/producten_en_diensten)
@@ -53,7 +53,7 @@ info:
     
     Let er bij het meegeven van JWT tokens op dat deze moet worden voorafgegaan door een Bearer en een spatie, onder de header Authorization. De volledig naam wordt daarmee: 'Authorization: Bearer [TOKEN]'.
     
-  version: 0.0.1
+  version: '0.0.21 Alpha'
   title: 'Producten en Diensten API'
   termsOfService: 'http://www.zaakonline.nl/terms/'
   contact:
@@ -344,261 +344,6 @@ paths:
           required: false
           schema:
             type: string
-  /extras:
-    get:
-      summary: 'Haalt een verzameling van producten op'
-      tags:
-        - Extra
-      operationId: getExtraCollection
-      responses:
-        200:
-          description: 'Extra collection response'
-          content:
-            application/ld+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Extra'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Extra'
-            text/html:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Extra'
-      parameters:
-        -
-          name: bronOrganisatie
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'bronOrganisatie[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: 'order[bronOrganisatie]'
-          in: query
-          required: false
-          schema:
-            type: string
-    post:
-      summary: 'Maak een product aan'
-      tags:
-        - Extra
-      operationId: postExtraCollection
-      responses:
-        201:
-          description: 'Extra resource created'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Extra'
-          links:
-            GetExtraItem:
-              parameters:
-                id: '$response.body#/id'
-              operationId: getExtraItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /extras/{id}`.'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Extra'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Extra'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/Extra'
-        description: 'The new Extra resource'
-  '/extras/{id}':
-    get:
-      summary: 'Haal een specifiek product op'
-      tags:
-        - Extra
-      operationId: getExtraItem
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: 'Extra resource response'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Extra'
-        404:
-          description: 'Resource not found'
-    put:
-      summary: 'Vervang een specifiek product'
-      tags:
-        - Extra
-      operationId: putExtraItem
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: 'Extra resource updated'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Extra'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Extra'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Extra'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Extra'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/Extra'
-        description: 'The updated Extra resource'
-    delete:
-      summary: 'Verwijder een specifiek product'
-      tags:
-        - Extra
-      operationId: deleteExtraItem
-      responses:
-        204:
-          description: 'Extra resource deleted'
-        404:
-          description: 'Resource not found'
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-  '/extras/{id}/log':
-    get:
-      summary: 'Logboek inzien'
-      description: 'Geeft een array van eerdere versies en wijzigingen van dit object'
-      consumes:
-        - application/json
-        - text/html
-      produces:
-        - application/json
-      tags:
-        - Extra
-      operationId: logExtraItem
-      parameters:
-        -
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: 'Extra resource response'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-        404:
-          description: 'Resource not found'
-  '/extras/{id}/revert/{version}':
-    post:
-      summary: 'Versie teruggedraaien'
-      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
-      consumes:
-        - application/json
-        - text/html
-      produces:
-        - application/json
-      tags:
-        - Extra
-      operationId: revertExtraItem
-      responses:
-        201:
-          description: 'Extra resource created'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Extra-read'
-          links:
-            GetExtraItem:
-              parameters:
-                id: '$response.body#/id'
-              operationId: getExtraItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /extras/{id}`.'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Extra-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Extra-write'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/Extra-write'
-        description: 'The new Extra resource'
   /groepen:
     get:
       summary: 'Haalt een verzameling van producten op'
@@ -966,6 +711,18 @@ paths:
           required: false
           schema:
             type: string
+        -
+          name: 'order[losLeverbaar]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: losLeverbaar
+          in: query
+          required: false
+          schema:
+            type: boolean
     post:
       summary: 'Maak een product aan'
       tags:
@@ -1128,7 +885,7 @@ paths:
           description: 'Resource not found'
   '/producten/{id}/revert/{version}':
     post:
-      summary: 'Versie teruggedraaien'
+      summary: 'Versie herstellen'
       description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
       consumes:
         - application/json
@@ -1367,214 +1124,12 @@ components:
           maxLength: 255
           format: uri
           description: 'De contactpersoon voor deze Applicatie, die bijvoorbeeld wordt verwittigd bij misbruik.'
-    Extra:
-      type: object
-      description: 'product extra'
-      properties:
-        id:
-          description: 'Het identificatie nummer van deze product extra <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
-          type: integer
-        afbeelding:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het afbeeldings document'
-        film:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het film document'
-        identificatie:
-          type: string
-          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
-          required: 'true'
-          maxLength: 40
-        bronOrganisatie:
-          title: bronOrganisatie
-          type: string
-          example: '123456789'
-          required: 'true'
-          maxLength: 9
-          minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Extra behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
-        naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
-          type: string
-        samenvatting:
-          description: 'Een korte samenvattende tekst over deze Extra bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
-          type: string
-        beschrijving:
-          description: 'Een uitgebreide beschrijvende tekst over deze Extra bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
-          type: string
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
-          type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
-          type: integer
-        taxAmount:
-          description: 'The non decimal value for the tax o this product'
-          type: integer
-        inclAmount:
-          description: 'The non decimal value for the price of this product (including tax)'
-          type: integer
-        currency:
-          description: 'The base currency of this product'
-          type: string
-        taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
-          type: string
-        producten:
-          description: 'De producten de bij deze product groep horen'
-          type: array
-          items:
-            type: string
-        product:
-          description: 'Add Product'
-          type: array
-          items:
-            type: string
-        products:
-          description: 'Get Product'
-          type: string
-        url:
-          readOnly: true
-      required:
-        - naam
-        - samenvatting
-        - beschrijving
-    Extra-read:
-      type: object
-      description: 'product extra'
-      properties:
-        id:
-          description: 'Het identificatie nummer van deze product extra <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
-          type: integer
-        afbeelding:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het afbeeldings document'
-        film:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het film document'
-        identificatie:
-          type: string
-          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
-          required: 'true'
-          maxLength: 40
-        bronOrganisatie:
-          title: bronOrganisatie
-          type: string
-          example: '123456789'
-          required: 'true'
-          maxLength: 9
-          minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Extra behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
-        naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
-          type: string
-        samenvatting:
-          description: 'Een korte samenvattende tekst over deze Extra bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
-          type: string
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
-          type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
-          type: integer
-        taxAmount:
-          description: 'The non decimal value for the tax o this product'
-          type: integer
-        inclAmount:
-          description: 'The non decimal value for the price of this product (including tax)'
-          type: integer
-        currency:
-          description: 'The base currency of this product'
-          type: string
-        taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
-          type: string
-        producten:
-          description: 'De producten de bij deze product groep horen'
-          type: array
-          items:
-            type: string
-      required:
-        - naam
-        - samenvatting
-    Extra-write:
-      type: object
-      description: 'product extra'
-      properties:
-        id:
-          description: 'Het identificatie nummer van deze product extra <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
-          type: integer
-        afbeelding:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het afbeeldings document'
-        film:
-          title: BRP
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar het film document'
-        identificatie:
-          type: string
-          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
-          required: 'true'
-          maxLength: 40
-        naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
-          type: string
-        samenvatting:
-          description: 'Een korte samenvattende tekst over deze Extra bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
-          type: string
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
-          type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
-          type: integer
-        currency:
-          description: 'The base currency of this product'
-          type: string
-        taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
-          type: string
-      required:
-        - naam
-        - samenvatting
     Groep:
       type: object
-      description: Locatie
+      description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Locatie <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1583,7 +1138,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document'
+          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
         film:
           title: BRP
           type: url
@@ -1595,7 +1150,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
+          description: 'De unieke identificatie van de product groep binnen de organisatie'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1607,7 +1162,7 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Groep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1616,7 +1171,7 @@ components:
           description: 'Een uitgebreide beschrijvende tekst over deze Ambtenaar bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         producten:
           description: 'De producten de bij deze product groep horen'
@@ -1639,10 +1194,10 @@ components:
         - beschrijving
     Groep-read:
       type: object
-      description: Locatie
+      description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Locatie <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1651,7 +1206,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document'
+          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
         film:
           title: BRP
           type: url
@@ -1663,7 +1218,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
+          description: 'De unieke identificatie van de product groep binnen de organisatie'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1675,13 +1230,13 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Groep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         producten:
           description: 'De producten de bij deze product groep horen'
@@ -1693,10 +1248,10 @@ components:
         - samenvatting
     Groep-write:
       type: object
-      description: Locatie
+      description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Locatie <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1705,7 +1260,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document'
+          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
         film:
           title: BRP
           type: url
@@ -1717,17 +1272,17 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag'
+          description: 'De unieke identificatie van de product groep binnen de organisatie'
           required: 'true'
           maxLength: 40
         naam:
-          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
       required:
         - naam
@@ -1755,7 +1310,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
           summary: 'Haal de identificatie van een product op'
         bronOrganisatie:
@@ -1765,7 +1320,7 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
         naam:
           description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
@@ -1778,71 +1333,70 @@ components:
         type:
           type: string
           enum:
-            - simple
-            - set
-            - virtual
-            - external
-            - ticket
-            - variable
-            - subscription
-          example: simple
+            - simpel
+            - samengesteld
+            - virtueel
+            - extern
+            - kaartje
+            - variabel
+            - abonement
+            - dienst
+          example: simpel
           required: 'true'
-          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
-        groupedProducts:
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+        extras:
+          description: 'De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.'
+          type: array
+          items:
+            type: string
+        leverbaarBij:
+          description: 'Producten waarbij dit product leverbaar is als extra'
+          type: array
+          items:
+            type: string
+        producten:
+          description: '(alleen toepasbaar bij product type samengesteld) Producten die onderdeel uitmaken van dit product. eg: Een set van 6 verschillende glazen.'
           type: array
           items:
             type: string
         sets:
-          description: 'A product can be part of a set in wich it is sold combined with order products.'
+          description: 'De sets (samengestelde producten) waartoe dit product in voorkomt'
           type: array
           items:
             type: string
-        variations:
-          description: 'This product type lets you add variations to the same product to create a complex, variable product. Each variation of the product has its own price, SKU, available stock etc. eg: A shirt or t-shirt with different sizes and different colors.'
+        variaties:
+          description: '(alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. e.g. een t-shirt met verschillende maten en kleuren'
           type: array
           items:
             type: string
-        parent:
-          description: 'The Organisation that sells this product.'
+        moeder:
+          description: '(alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is e.g. een bepaalde kleur van een t-shirt'
           type: string
-        agenda:
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar de agenda van dit product'
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
+        losLeverbaar:
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          type: boolean
+        prijsExcl:
+          description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
           type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
+        belastingPercentage:
+          description: 'Het percentage van de belasting op dit product, in percentage dus 1% = 1, en niet 0,01.'
           type: integer
-        taxAmount:
-          description: 'The non decimal value for the tax o this product'
+        prijsBelasting:
+          description: 'De niet-decimale waarde voor de belasting van dit product.'
           type: integer
-        inclAmount:
-          description: 'The non decimal value for the price of this product (including tax)'
+        prijsIncl:
+          description: 'De niet-decimale waarde voor de prijs van dit product (inclusief btw).'
           type: integer
-        currency:
-          description: 'The base currency of this product'
+        valuta:
+          description: 'De basisvaluta van dit product.'
           type: string
         beschikbaar:
-          description: 'Eerste volgende datum waarop dit product beschikbaar is.'
+          description: 'Eerstvolgende datum waarop dit product beschikbaar is.'
           type: string
           format: date-time
         groepen:
-          title: groepen
+          description: 'De product groepen waartoe dit product behoord.'
           type: array
-          example: '[]'
-          description: 'De product groepen waartoe dit product behoort.'
-          items:
-            type: string
-        extras:
-          title: extras
-          type: array
-          example: '[]'
-          description: 'De product extras die voor dit product beschikbaar zijn.'
           items:
             type: string
         locaties:
@@ -1860,7 +1414,7 @@ components:
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         registratiedatum:
           description: 'Het tijdstip waarop dit Product object is aangemaakt'
@@ -1877,7 +1431,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor dit Product'
+          description: 'De contactpersoon voor dit Product'
         eigenaar:
           description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel'
           type: string
@@ -1919,7 +1473,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
           summary: 'Haal de identificatie van een product op'
         bronOrganisatie:
@@ -1929,7 +1483,7 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
         naam:
           description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
@@ -1942,54 +1496,47 @@ components:
         type:
           type: string
           enum:
-            - simple
-            - set
-            - virtual
-            - external
-            - ticket
-            - variable
-            - subscription
-          example: simple
+            - simpel
+            - samengesteld
+            - virtueel
+            - extern
+            - kaartje
+            - variabel
+            - abonement
+            - dienst
+          example: simpel
           required: 'true'
-          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
-        agenda:
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar de agenda van dit product'
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+        extras:
+          description: 'De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.'
+          type: array
+          items:
+            type: string
+        losLeverbaar:
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          type: boolean
+        prijsExcl:
+          description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
           type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
+        belastingPercentage:
+          description: 'Het percentage van de belasting op dit product, in percentage dus 1% = 1, en niet 0,01.'
           type: integer
-        taxAmount:
-          description: 'The non decimal value for the tax o this product'
+        prijsBelasting:
+          description: 'De niet-decimale waarde voor de belasting van dit product.'
           type: integer
-        inclAmount:
-          description: 'The non decimal value for the price of this product (including tax)'
+        prijsIncl:
+          description: 'De niet-decimale waarde voor de prijs van dit product (inclusief btw).'
           type: integer
-        currency:
-          description: 'The base currency of this product'
+        valuta:
+          description: 'De basisvaluta van dit product.'
           type: string
         beschikbaar:
-          description: 'Eerste volgende datum waarop dit product beschikbaar is.'
+          description: 'Eerstvolgende datum waarop dit product beschikbaar is.'
           type: string
           format: date-time
         groepen:
-          title: groepen
+          description: 'De product groepen waartoe dit product behoord.'
           type: array
-          example: '[]'
-          description: 'De product groepen waartoe dit product behoort.'
-          items:
-            type: string
-        extras:
-          title: extras
-          type: array
-          example: '[]'
-          description: 'De product extras die voor dit product beschikbaar zijn.'
           items:
             type: string
         locaties:
@@ -2007,7 +1554,7 @@ components:
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         registratiedatum:
           description: 'Het tijdstip waarop dit Product object is aangemaakt'
@@ -2024,7 +1571,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor dit Product'
+          description: 'De contactpersoon voor dit Product'
         eigenaar:
           description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel'
           type: string
@@ -2056,7 +1603,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
           summary: 'Haal de identificatie van een product op'
         naam:
@@ -2071,31 +1618,28 @@ components:
         type:
           type: string
           enum:
-            - simple
-            - set
-            - virtual
-            - external
-            - ticket
-            - variable
-            - subscription
-          example: simple
+            - simpel
+            - samengesteld
+            - virtueel
+            - extern
+            - kaartje
+            - variabel
+            - abonement
+            - dienst
+          example: simpel
           required: 'true'
-          description: 'The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group'
-        agenda:
-          type: url
-          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
-          required: 'true'
-          maxLength: 255
-          format: uri
-          description: 'URL-referentie naar de agenda van dit product'
-        exclAmount:
-          description: 'The non decimal value for the price of this product (excluding tax)'
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+        losLeverbaar:
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          type: boolean
+        prijsExcl:
+          description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
           type: integer
-        taxPercentage:
-          description: 'The the percentage of the on this product, in percentage so 1% = 1, and not 0,01'
+        belastingPercentage:
+          description: 'Het percentage van de belasting op dit product, in percentage dus 1% = 1, en niet 0,01.'
           type: integer
-        currency:
-          description: 'The base currency of this product'
+        valuta:
+          description: 'De basisvaluta van dit product.'
           type: string
         locaties:
           title: locaties
@@ -2112,7 +1656,7 @@ components:
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         contactPersoon:
           title: Contactpersoon
@@ -2121,7 +1665,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor dit Product'
+          description: 'De contactpersoon voor dit Product'
       required:
         - naam
         - samenvatting
@@ -2145,9 +1689,6 @@ tags:
     name: Product
     description: 'Een verkoopbaar product'
   -
-    name: Extra
-    description: 'Een extra optie op producten'
-  -
     name: Groep
     description: 'Een groep van producten '
   -
@@ -2158,7 +1699,6 @@ x-tagGroups:
     name: Producten
     tags:
       - Product
-      - Extra
       - Groep
   -
     name: Applicatie

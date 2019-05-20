@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Locatie
+ * Groep
  * 
  * Beschrijving
  * 
@@ -125,7 +125,7 @@ class Groep
 {
 	
 	/**
-	 * Het identificatie nummer van deze Locatie <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var int|null
 	 *
@@ -138,7 +138,7 @@ class Groep
 	public $id;
 	
 	/**
-	 * URL-referentie naar het afbeeldings document
+	 * URL-referentie naar het afbeeldings document vand eze product groep
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -189,7 +189,7 @@ class Groep
 	
 	
 	/**
-	 * De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag
+	 * De unieke identificatie van de product groep binnen de organisatie
 	 *
 	 * @var string
 	 * @ORM\Column(
@@ -243,7 +243,7 @@ class Groep
 	public $bronOrganisatie;
 	
 	/**
-	 * De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -264,7 +264,7 @@ class Groep
      *     attributes={
      *         "swagger_context"={
      *             "type"="string",
-     *             "example"="Een mooie locatie"
+     *             "example"="Glazen"
      *         }
      *     }
 	 * )
@@ -292,7 +292,7 @@ class Groep
 	 *     attributes={
 	 *         "swagger_context"={
 	 *             "type"="string",
-	 *             "example"="Deze prachtige locatie is zeker het aanbevelen waard"
+	 *             "example"="Bekijk onze prachtige collectie glazen"
 	 *         }
 	 *     }
 	 * )
@@ -319,7 +319,7 @@ class Groep
      *     attributes={
      *         "swagger_context"={
      *             "type"="string",
-     *             "example"="Deze prachtige locatie is zeker het aanbevelen waard"
+     *             "example"="Onze glazen zijn zeker het aanbevelen waard"
      *         }
      *     }
 	 * )
@@ -327,7 +327,7 @@ class Groep
 	public $beschrijving;
 	
 	/**
-	 * De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
+	 * De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
 	 *
 	 * @var string Een Unicode language identifier, ofwel RFC 3066 taalcode.
 	 *

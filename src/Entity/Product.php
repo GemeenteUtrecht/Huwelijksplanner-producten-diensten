@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -337,23 +338,22 @@ class Product implements StringableInterface
 	public $beschrijving;
 	
 	/**
-	 * @var string The type of this product. **simple**: ,**set**: ,**virtual**: ,**external**: ,**ticket**: ,**variable**: ,**subscription**: A recurring payment e.g. membership that gives acces to a client group
-	 *
+	 * @var string het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar 
 	 * @ORM\Column
 	 * @ApiProperty(
 	 *     attributes={
 	 *         "openapi_context"={
 	 *             "type"="string",
-	 *             "enum"={"simple", "set", "virtual","external","ticket","variable","subscription"},
-	 *             "example"="simple",
+	 *             "enum"={"simpel", "samengesteld", "virtueel","extern","kaartje","variabel","abonement","dienst"},
+	 *             "example"="simpel",
 	 *             "required"="true"
 	 *         }
 	 *     }
 	 * )
 	 * @Assert\NotBlank
 	 * @Assert\Choice(
-	 *     choices = { "simple", "set", "virtual","external","ticket","variable","subscription"},
-	 *     message = "Choose either simple,set,virtual,external,ticket,variable or subscription"
+	 *     choices = { "simpel", "samengesteld", "virtual","external","ticket","variable","subscription"},
+	 *     message = "Choose either simpel,samengesteld,virtual,external,ticket,variable or subscription"
 	 * )
 	 * @ApiFilter(SearchFilter::class, strategy="exact")
 	 * @ApiFilter(OrderFilter::class)
@@ -362,65 +362,74 @@ class Product implements StringableInterface
 	public $type;
 	
 	/**
-	 * @var OrderLine[] A grouped product is a cluster of simple products clubbed together to form a single entity. The grouped product won�t have a price or a unique identifier of its own. The identity of the grouped product is created by a number of child products that have unique features of their own. As soon as you create a grouped product, you can add at least one child product to the grouped product. Your customers can purchase any of the child product from the grouped product individually as well. eg: A set of six glasses.
+	 * De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.
 	 *
-	 * @MaxDepth(1)
-	 * @ApiProperty()
-	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="sets")
+	 * @var \Doctrine\Common\Collections\Collection|App\Entity\Product[]
+	 *
+	 * @Groups({"read"})
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="leverbaarBij")
+     * @ORM\JoinTable(name="product_extra")
+	 * @ApiProperty(
+	 * )
+	 *
 	 */
-	public $groupedProducts;
+	public $extras;
 	
 	/**
-	 * @var OrderLine[] A product can be part of a set in wich it is sold combined with order products.
+	 * @var App\Entity\Product[] Producten waarbij dit product leverbaar is als extra
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
-	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="groupedProducts")
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="extras")
+	 */
+	public $leverbaarBij;
+	
+	/**
+	 * @var App\Entity\Product[] (alleen toepasbaar bij product type samengesteld) Producten die onderdeel uitmaken van dit product. eg: Een set van 6 verschillende glazen.
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="sets")
+     * @ORM\JoinTable(name="product_product")
+	 */
+	public $producten;
+	
+	/**
+	 * @var App\Entity\Product[] De sets (samengestelde producten) waartoe dit product in voorkomt
+	 *
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="producten")
 	 */
 	public $sets;
 	
 	/**
-	 * @var OrderLine[] This product type lets you add variations to the same product to create a complex, variable product. Each variation of the product has its own price, SKU, available stock etc. eg: A shirt or t-shirt with different sizes and different colors.
+	 * @var App\Entity\Product[]  (alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. e.g. een t-shirt met verschillende maten en kleuren
+	 * 
+	 * @MaxDepth(1)
+	 * @ApiProperty()
+	 * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="moeder")
+	 */
+	public $variaties;
+	
+	/**
+	 * @var Organisation (alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is e.g. een bepaalde kleur van een t-shirt
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
-	 * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="parent")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="variaties")
 	 */
-	public $variations;
-	
+	public $moeder;
+		
 	/**
-	 * @var Organisation The Organisation that sells this product.
+	 * Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is 
 	 *
-	 * @MaxDepth(1)
-	 * @ApiProperty()
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="variations")
+	 * @Groups({"read","write"})
+	 * @ApiFilter(BooleanFilter::class)
+	 * @ApiFilter(OrderFilter::class)
+	 * @ORM\Column(type="boolean")
 	 */
-	public $parent;
-	
-	/**
-	 * URL-referentie naar de agenda van dit product.
-	 *
-	 * @ORM\Column(
-	 *     type     = "string",
-	 *     nullable = true
-	 * )
-	 * @Groups({"read", "write"})
-	 * @ApiProperty(
-	 *     attributes={
-	 *         "openapi_context"={
-	 *             "type"="url",
-	 *             "example"="https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65",
-	 *             "required"="true",
-	 *             "maxLength"=255,
-	 *             "format"="uri",
-	 *             "description"="URL-referentie naar de agenda van dit product"
-	 *         }
-	 *     }
-	 * )
-	 * @Gedmo\Versioned
-	 */
-	public $agenda;
-	
+	public $losLeverbaar;
 	
 	/**
 	 * @var integer De niet-decimale waarde voor de prijs van dit product (exclusief btw).
@@ -433,7 +442,7 @@ class Product implements StringableInterface
 	 * )
 	 * @Groups({"read", "write"})
 	 */
-	public $exclAmount = 0;
+	public $prijsExcl = 0;
 	
 	/**
 	 * @var integer Het percentage van de belasting op dit product, in percentage dus 1% = 1, en niet 0,01.
@@ -446,7 +455,7 @@ class Product implements StringableInterface
 	 * )
 	 * @Groups({"read", "write"})
 	 */
-	public $taxPercentage = 0;
+	public $belastingPercentage = 0;
 	
 	/**
 	 * @var integer De niet-decimale waarde voor de belasting van dit product.
@@ -459,7 +468,7 @@ class Product implements StringableInterface
 	 * )
 	 * @Groups({"read"})
 	 */
-	public $taxAmount = 0;
+	public $prijsBelasting = 0;
 	
 	/**
 	 * @var integer De niet-decimale waarde voor de prijs van dit product (inclusief btw).
@@ -472,7 +481,7 @@ class Product implements StringableInterface
 	 * )
 	 * @Groups({"read"})
 	 */
-	public $inclAmount = 0;
+	public $prijsIncl = 0;
 	
 	/**
 	 * @var string De basisvaluta van dit product.
@@ -482,7 +491,7 @@ class Product implements StringableInterface
 	 * @Assert\Currency
 	 * @Groups({"read", "write"})
 	 */
-	public $currency = "EUR";
+	public $valuta = "EUR";
 	
 	/**
 	 * Eerstvolgende datum waarop dit product beschikbaar is.
@@ -504,41 +513,11 @@ class Product implements StringableInterface
 	 *
 	 * @Groups({"read"})
 	 * @ORM\ManyToMany(targetEntity="\App\Entity\Groep", inversedBy="producten")
-	 * @ApiProperty(
-	 *     attributes={
-	 *         "openapi_context"={
-	 *             "title"="groepen",
-	 *             "type"="array",
-	 *             "example"="[]",
-	 *             "description"="Producten die bij deze locatie horen"
-	 *         }
-	 *     }
 	 * )
 	 *
 	 */
 	public $groepen;
-	
-	/**
-	 * De product extra's die voor dit product beschikbaar zijn.
-	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Extra[]
-	 *
-	 * @Groups({"read"})
-	 * @ORM\ManyToMany(targetEntity="\App\Entity\Extra", inversedBy="producten")
-	 * @ApiProperty(
-	 *     attributes={
-	 *         "openapi_context"={
-	 *             "title"="extras",
-	 *             "type"="array",
-	 *             "example"="[]",
-	 *             "description"="Producten die bij deze locatie horen"
-	 *         }
-	 *     }
-	 * )
-	 *
-	 */
-	public $extras;	
-	
+		
 	/**
 	 * Locaties die bij dit product horen.
 	 *
@@ -576,7 +555,6 @@ class Product implements StringableInterface
 	 *             "title"="ambtenaren",
 	 *             "type"="array",
 	 *             "example"="[]",
-	 *             "description"="Producten die bij deze locatie horen"
 	 *         }
 	 *     }
 	 * )
@@ -584,7 +562,7 @@ class Product implements StringableInterface
 	public $ambtenaren;	
 	
 	/**
-	 * De taal waarin de informatie van deze locatie is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
+	 * De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
 	 *
 	 * @var string Een Unicode language identifier, ofwel RFC 3066 taalcode.
 	 *

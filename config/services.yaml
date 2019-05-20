@@ -84,8 +84,6 @@ parameters:
               # The general endpoints  
             - name: Product
               description: "Een verkoopbaar product"
-            - name: Extra
-              description: "Een extra optie op producten"
             - name: Groep
               description: "Een groep van producten "
             - name: Applicatie
@@ -95,7 +93,6 @@ parameters:
             - name: Producten
               tags:
               - Product
-              - Extra
               - Groep
             - name: Applicatie
               tags:
