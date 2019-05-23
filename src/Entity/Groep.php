@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -39,7 +37,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/groepen",
  *  		"openapi_context" = {
- * 				"summary" = "Haalt een verzameling van producten op"
+ * 				"summary" = "Haalt een verzameling van Productgoepen op."
  *  		}
  *  	},
  *  	"post"={
@@ -47,7 +45,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/groepen",
  *  		"openapi_context" = {
- * 					"summary" = "Maak een product aan"
+ * 					"summary" = "Maak een Productgroep aan."
  *  		}
  *  	}
  *  },
@@ -57,7 +55,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/groepen/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Haal een specifiek product op"
+ * 				"summary" = "Haal een specifieke Productgroep op."
  *  		}
  *  	},
  *     "put"={
@@ -65,7 +63,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/groepen/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Vervang een specifiek product"
+ * 				"summary" = "Vervang een specifieke Productgroep."
  *  		}
  *  	},
  *     "delete"={
@@ -73,7 +71,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/groepen/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Verwijder een specifiek product"
+ * 				"summary" = "Verwijder een specifieke Productgroep."
  *  		}
  *  	},
  *     "log"={
@@ -84,7 +82,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
  *         		"summary" = "Logboek inzien",
- *         		"description" = "Geeft een array van eerdere versies en wijzigingen van dit object",
+ *         		"description" = "Geeft een array van eerdere versies en wijzigingen van dit object.",
  *          	"consumes" = {
  *              	"application/json",
  *               	"text/html",
@@ -101,8 +99,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
- *         		"summary" = "Versie teruggedraaien",
- *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
+ *         		"summary" = "Versie herstellen",
+ *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt.",
  *          	"consumes" = {
  *              	"application/json",
  *               	"text/html",
@@ -119,7 +117,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(
  *     fields={"identificatie", "bronOrganisatie"},
- *     message="De identificatie dient uniek te zijn voor de bronOrganisatie"
+ *     message="De identificatie dient uniek te zijn voor de bronOrganisatie."
  * )
  */
 
@@ -127,7 +125,7 @@ class Groep
 {
 	
 	/**
-	 * Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var int|null
 	 *
@@ -140,7 +138,7 @@ class Groep
 	public $id;
 	
 	/**
-	 * URL-referentie naar het afbeeldings document vand eze product groep
+	 * URL-referentie naar het afbeeldingsdocument vand deze Productgroep.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -156,7 +154,7 @@ class Groep
 	 *             "required"="true",
 	 *             "maxLength"=255,
 	 *             "format"="uri",
-	 *             "description"="URL-referentie naar de BRP inschrijving van dit persoon"
+	 *             "description"="URL-referentie naar het afbeeldingsdocument vand deze Productgroep."
 	 *         }
 	 *     }
 	 * )
@@ -165,7 +163,7 @@ class Groep
 	public $afbeelding;
 	
 	/**
-	 * URL-referentie naar het film document
+	 * URL-referentie naar het film document van deze Productgroep.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -181,7 +179,7 @@ class Groep
 	 *             "required"="true",
 	 *             "maxLength"=255,
 	 *             "format"="uri",
-	 *             "description"="URL-referentie naar de BRP inschrijving van dit persoon"
+	 *             "description"="URL-referentie naar het film document van deze Productgroep."
 	 *         }
 	 *     }
 	 * )
@@ -191,7 +189,7 @@ class Groep
 	
 	
 	/**
-	 * De unieke identificatie van de product groep binnen de organisatie
+	 * De unieke identificatie van de productgroep binnen de organisatie
 	 *
 	 * @var string
 	 * @ORM\Column(
@@ -203,7 +201,7 @@ class Groep
 	 *         "openapi_context"={
 	 *             "type"="string",
 	 *             "example"="6a36c2c4-213e-4348-a467-dfa3a30f64aa",
-	 *             "description"="De unieke identificatie van het huwelijk binnen de organisatie die verantwoordelijk is voorafhandeling vna de huwelijks aanvraag.",
+	 *             "description"="De unieke identificatie van de productgroep binnen de organisatie.",
 	 *             "required"="true",
 	 *             "maxLength"=40
 	 *         }
@@ -213,7 +211,7 @@ class Groep
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de organisatie waartoe deze Groep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven
+	 * Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.
 	 *
 	 * @var integer
 	 * @ORM\Column(
@@ -223,8 +221,8 @@ class Groep
 	 * @Assert\Length(
 	 *      min = 8,
 	 *      max = 9,
-	 *      minMessage = "Het RSIN moet ten minste {{ limit }} karakters lang zijn",
-	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} karakters zijn"
+	 *      minMessage = "Het RSIN moet ten minste {{ limit }} karakters lang zijn.",
+	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} karakters zijn."
 	 * )
 	 * @Groups({"read"})
 	 * @ApiFilter(SearchFilter::class, strategy="exact")
@@ -245,7 +243,7 @@ class Groep
 	public $bronOrganisatie;
 	
 	/**
-	 * De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -257,8 +255,8 @@ class Groep
 	 * @Assert\Length(
 	 *      min = 5,
 	 *      max = 255,
-	 *      minMessage = "De naam moet ten minste {{ limit }} karakters lang zijn",
-	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn"
+	 *      minMessage = "De naam moet ten minste {{ limit }} karakters lang zijn.",
+	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn."
 	 * )
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -274,7 +272,7 @@ class Groep
 	public $naam;
 	
 	/**
-	 * Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
+	 * Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
 	 *
 	 * @var string
 	 *
@@ -285,8 +283,8 @@ class Groep
 	 * @Assert\Length(
 	 *      min = 25,
 	 *      max = 2000,
-	 *      minMessage = "Your first name must be at least {{ limit }} characters long",
-	 *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
+	 *      minMessage = "De productgroep samenvatting moet minstens {{ limit }} karakters lang zijn.",
+	 *      maxMessage = "De productgroep samenvatting kan maximaal {{ limit }}  karakters lang zijn.")
 	 *
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -302,7 +300,7 @@ class Groep
 	public $samenvatting;
 	
 	/** 
-	 * Een uitgebreide beschrijvende tekst over deze Ambtenaar bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
+	 * Een uitgebreide beschrijvende tekst over deze Productgroep bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>
 	 *
 	 * @var string
 	 *
@@ -313,15 +311,15 @@ class Groep
 	 * @Assert\Length(
 	 *      min = 25,
 	 *      max = 2000,
-	 *      minMessage = "Your first name must be at least {{ limit }} characters long",
-	 *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
+	 *      minMessage = "De productgroep beschrijving moet minstens {{ limit }} karakters lang zijn.",
+	 *      maxMessage = "De productgroep beschrijving kan maximaal {{ limit }} karakters lang zijn.")
 	 *
 	  * @ApiProperty(
 	 * 	  iri="https://schema.org/description",	 
      *     attributes={
      *         "swagger_context"={
      *             "type"="string",
-     *             "example"="Onze glazen zijn zeker het aanbevelen waard"
+     *             "example"="Binnen onze collectie glazen vind u alle types die u zich maar kan wensne. Deze glazen zijn zeker het aanbevelen waard"
      *         }
      *     }
 	 * )
@@ -329,7 +327,7 @@ class Groep
 	public $beschrijving;
 	
 	/**
-	 * De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
+	 * De taal waarin de informatie van deze Productgroep is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
 	 *
 	 * @var string Een Unicode language identifier, ofwel RFC 3066 taalcode.
 	 *
@@ -351,7 +349,7 @@ class Groep
 	public $taal = "nl";
 	
 	/**
-	 * De producten de bij deze product groep horen
+	 * De producten de bij deze Productgroep horen.
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Product[]
 	 *
@@ -360,11 +358,6 @@ class Groep
 	 *
 	 */
 	public $producten;
-
-    public function __construct()
-    {
-        $this->producten = new ArrayCollection();
-    }
 	
 	/**
 	 * Add Product
@@ -373,11 +366,11 @@ class Groep
 	 * @return Order
 	 */
 	public function addProduct(\App\Entity\Product $product)
-                                                                        	{
-                                                                        		$this->products[] = $product;
-                                                                        		
-                                                                        		return $this;
-                                                                        	}
+	{
+		$this->products[] = $product;
+		
+		return $this;
+	}
 	
 	/**
 	 * Remove Product
@@ -385,9 +378,9 @@ class Groep
 	 * @param \App\Entity\Product $product
 	 */
 	public function removeProduct(\App\Entity\Product $product)
-                                                                        	{
-                                                                        		$this->products->removeElement($product);
-                                                                        	}
+	{
+		$this->products->removeElement($product);
+	}
 	
 	/**
 	 * Get Product
@@ -395,141 +388,12 @@ class Groep
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
 	public function getProducts()
-                                                                        	{
-                                                                        		return $this->products;
-                                                                        	}
+	{
+		return $this->products;
+	}
 
 	public function getUrl()
-                                                                        	{
-                                                                        		return 'http://producten_en_diensten.demo.zaakonline.nl/groepen/'.$this->id;
-                                                                        	}
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getAfbeelding(): ?string
-    {
-        return $this->afbeelding;
-    }
-
-    public function setAfbeelding(?string $afbeelding): self
-    {
-        $this->afbeelding = $afbeelding;
-
-        return $this;
-    }
-
-    public function getFilm(): ?string
-    {
-        return $this->film;
-    }
-
-    public function setFilm(?string $film): self
-    {
-        $this->film = $film;
-
-        return $this;
-    }
-
-    public function getIdentificatie(): ?string
-    {
-        return $this->identificatie;
-    }
-
-    public function setIdentificatie(string $identificatie): self
-    {
-        $this->identificatie = $identificatie;
-
-        return $this;
-    }
-
-    public function getBronOrganisatie(): ?int
-    {
-        return $this->bronOrganisatie;
-    }
-
-    public function setBronOrganisatie(int $bronOrganisatie): self
-    {
-        $this->bronOrganisatie = $bronOrganisatie;
-
-        return $this;
-    }
-
-    public function getNaam(): ?string
-    {
-        return $this->naam;
-    }
-
-    public function setNaam(string $naam): self
-    {
-        $this->naam = $naam;
-
-        return $this;
-    }
-
-    public function getSamenvatting(): ?string
-    {
-        return $this->samenvatting;
-    }
-
-    public function setSamenvatting(string $samenvatting): self
-    {
-        $this->samenvatting = $samenvatting;
-
-        return $this;
-    }
-
-    public function getBeschrijving(): ?string
-    {
-        return $this->beschrijving;
-    }
-
-    public function setBeschrijving(string $beschrijving): self
-    {
-        $this->beschrijving = $beschrijving;
-
-        return $this;
-    }
-
-    public function getTaal(): ?string
-    {
-        return $this->taal;
-    }
-
-    public function setTaal(string $taal): self
-    {
-        $this->taal = $taal;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducten(): Collection
-    {
-        return $this->producten;
-    }
-
-    public function addProducten(Product $producten): self
-    {
-        if (!$this->producten->contains($producten)) {
-            $this->producten[] = $producten;
-            $producten->addGroepen($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProducten(Product $producten): self
-    {
-        if ($this->producten->contains($producten)) {
-            $this->producten->removeElement($producten);
-            $producten->removeGroepen($this);
-        }
-
-        return $this;
-    }
+	{
+		return 'http://producten_en_diensten.demo.zaakonline.nl/groepen/'.$this->id;
+	}
 }

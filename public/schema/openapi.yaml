@@ -346,7 +346,7 @@ paths:
             type: string
   /groepen:
     get:
-      summary: 'Haalt een verzameling van producten op'
+      summary: 'Haalt een verzameling van Productgoepen op.'
       tags:
         - Groep
       operationId: getGroepCollection
@@ -393,7 +393,7 @@ paths:
           schema:
             type: string
     post:
-      summary: 'Maak een product aan'
+      summary: 'Maak een Productgroep aan.'
       tags:
         - Groep
       operationId: postGroepCollection
@@ -434,7 +434,7 @@ paths:
         description: 'The new Groep resource'
   '/groepen/{id}':
     get:
-      summary: 'Haal een specifiek product op'
+      summary: 'Haal een specifieke Productgroep op.'
       tags:
         - Groep
       operationId: getGroepItem
@@ -461,7 +461,7 @@ paths:
         404:
           description: 'Resource not found'
     put:
-      summary: 'Vervang een specifiek product'
+      summary: 'Vervang een specifieke Productgroep.'
       tags:
         - Groep
       operationId: putGroepItem
@@ -502,7 +502,7 @@ paths:
               $ref: '#/components/schemas/Groep'
         description: 'The updated Groep resource'
     delete:
-      summary: 'Verwijder een specifiek product'
+      summary: 'Verwijder een specifieke Productgroep.'
       tags:
         - Groep
       operationId: deleteGroepItem
@@ -521,7 +521,7 @@ paths:
   '/groepen/{id}/log':
     get:
       summary: 'Logboek inzien'
-      description: 'Geeft een array van eerdere versies en wijzigingen van dit object'
+      description: 'Geeft een array van eerdere versies en wijzigingen van dit object.'
       consumes:
         - application/json
         - text/html
@@ -554,8 +554,8 @@ paths:
           description: 'Resource not found'
   '/groepen/{id}/revert/{version}':
     post:
-      summary: 'Versie teruggedraaien'
-      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
+      summary: 'Versie herstellen'
+      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt.'
       consumes:
         - application/json
         - text/html
@@ -1129,7 +1129,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1138,7 +1138,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
+          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1146,11 +1146,11 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het film document'
+          description: 'URL-referentie naar het film document van deze Productgroep.'
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de product groep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1160,32 +1160,24 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Groep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         beschrijving:
-          description: 'Een uitgebreide beschrijvende tekst over deze Ambtenaar bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een uitgebreide beschrijvende tekst over deze Productgroep bedoeld ter verdere verduidelijking.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze Productgroep is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         producten:
-          description: 'De producten de bij deze product groep horen'
+          description: 'De producten de bij deze Productgroep horen.'
           type: array
           items:
             type: string
-        product:
-          description: 'Add Product'
-          type: array
-          items:
-            type: string
-        products:
-          description: 'Get Product'
-          type: string
         url:
           readOnly: true
       required:
@@ -1197,7 +1189,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1206,7 +1198,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
+          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1214,11 +1206,11 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het film document'
+          description: 'URL-referentie naar het film document van deze Productgroep.'
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de product groep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1228,18 +1220,18 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Groep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze Productgroep is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         producten:
-          description: 'De producten de bij deze product groep horen'
+          description: 'De producten de bij deze Productgroep horen.'
           type: array
           items:
             type: string
@@ -1251,7 +1243,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1260,7 +1252,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldings document vand eze product groep'
+          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1268,21 +1260,21 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het film document'
+          description: 'URL-referentie naar het film document van deze Productgroep.'
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de product groep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie'
           required: 'true'
           maxLength: 40
         naam:
-          description: 'De naam van deze product groep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
-          description: 'Een korte samenvattende tekst over deze Groep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+          description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
           type: string
         taal:
-          description: 'De taal waarin de informatie van deze product groep is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van deze Productgroep is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
       required:
         - naam
