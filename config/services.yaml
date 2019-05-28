@@ -64,7 +64,7 @@ parameters:
                 
                 Let er bij het meegeven van JWT tokens op dat deze moet worden voorafgegaan door een Bearer en een spatie, onder de header Authorization. De volledig naam wordt daarmee: 'Authorization: Bearer [TOKEN]'.
 
-            version: 0.0.21 Alpha
+            version: 0.0.22 Alpha
             title: 'Producten en Diensten API'
             termsOfService: 'http://www.zaakonline.nl/terms/'
             contact:
@@ -83,9 +83,9 @@ parameters:
         tags:
               # The general endpoints  
             - name: Product
-              description: "Een verkoopbaar product"
+              description: "Een verkoopbaar product."
             - name: Groep
-              description: "Een groep van producten "
+              description: "Een groep van producten."
             - name: Applicatie
               description: "Een software applicatie binnen een organisatie die gebruik maakt van een component voor het creëren, ophalen, bijwerken of verwijderen van gegevens. Applicaties kunnen worden geregistreerd om namens een organisatie te handelen op een component. In deze zin zijn applicaties dan ook onderdeel van het beheerproces, infrastructuur en configuratie van een component in plaats van het datamodel dat door het component wordt geleverd."  
               # Grouping the endopoint  

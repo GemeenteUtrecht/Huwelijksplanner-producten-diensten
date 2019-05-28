@@ -53,7 +53,7 @@ info:
     
     Let er bij het meegeven van JWT tokens op dat deze moet worden voorafgegaan door een Bearer en een spatie, onder de header Authorization. De volledig naam wordt daarmee: 'Authorization: Bearer [TOKEN]'.
     
-  version: '0.0.21 Alpha'
+  version: '0.0.22 Alpha'
   title: 'Producten en Diensten API'
   termsOfService: 'http://www.zaakonline.nl/terms/'
   contact:
@@ -1129,7 +1129,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1138,7 +1138,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
+          description: 'URL-referentie naar het afbeeldingsdocument van deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1150,7 +1150,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de productgroep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie.'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1160,9 +1160,9 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
+          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1178,6 +1178,14 @@ components:
           type: array
           items:
             type: string
+        product:
+          description: 'Voeg Product toe.'
+          type: array
+          items:
+            type: string
+        products:
+          description: 'Haal Product op.'
+          type: string
         url:
           readOnly: true
       required:
@@ -1189,7 +1197,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1198,7 +1206,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
+          description: 'URL-referentie naar het afbeeldingsdocument van deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1210,7 +1218,7 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de productgroep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie.'
           required: 'true'
           maxLength: 40
         bronOrganisatie:
@@ -1220,9 +1228,9 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
+          description: 'Het RSIN van de organisatie waartoe deze Productgroep behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1243,7 +1251,7 @@ components:
       description: Groep
       properties:
         id:
-          description: 'Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatie nummer van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         afbeelding:
           title: BRP
@@ -1252,7 +1260,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'URL-referentie naar het afbeeldingsdocument vand deze Productgroep.'
+          description: 'URL-referentie naar het afbeeldingsdocument van deze Productgroep.'
         film:
           title: BRP
           type: url
@@ -1264,11 +1272,11 @@ components:
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van de productgroep binnen de organisatie'
+          description: 'De unieke identificatie van de productgroep binnen de organisatie.'
           required: 'true'
           maxLength: 40
         naam:
-          description: 'De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over deze Productgroep bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1312,9 +1320,9 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe dit product behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over dit Product bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1331,18 +1339,18 @@ components:
             - extern
             - kaartje
             - variabel
-            - abonement
+            - abonnement
             - dienst
           example: simpel
           required: 'true'
-          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een verzameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leverancier <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn b.v. een t-shirt in verschillende kleuren <br/> **abonnement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
         extras:
-          description: 'De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.'
+          description: 'De producten die als extra op dit product bestelbaar zijn b.v. een opdruk op een glas of t-shirt.'
           type: array
           items:
             type: string
         leverbaarBij:
-          description: 'Producten waarbij dit product leverbaar is als extra'
+          description: 'Producten waarbij dit product leverbaar is als extra.'
           type: array
           items:
             type: string
@@ -1352,20 +1360,20 @@ components:
           items:
             type: string
         sets:
-          description: 'De sets (samengestelde producten) waartoe dit product in voorkomt'
+          description: 'De sets (samengestelde producten) waar dit product in voorkomt.'
           type: array
           items:
             type: string
         variaties:
-          description: '(alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. e.g. een t-shirt met verschillende maten en kleuren'
+          description: '(alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. b.v. een t-shirt met verschillende maten en kleuren.'
           type: array
           items:
             type: string
         moeder:
-          description: '(alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is e.g. een bepaalde kleur van een t-shirt'
+          description: '(alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is b.v. een bepaalde kleur van een t-shirt'
           type: string
         losLeverbaar:
-          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld "false" zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden, maar alleen via het product waar het een extra of variatie van is.'
           type: boolean
         prijsExcl:
           description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
@@ -1387,7 +1395,7 @@ components:
           type: string
           format: date-time
         groepen:
-          description: 'De product groepen waartoe dit product behoord.'
+          description: 'De product groepen waartoe dit product behoort.'
           type: array
           items:
             type: string
@@ -1402,14 +1410,14 @@ components:
           title: ambtenaren
           type: array
           example: '[]'
-          description: 'Ambtenaren die bij dit product horen'
+          description: 'Ambtenaren die bij dit product horen.'
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         registratiedatum:
-          description: 'Het tijdstip waarop dit Product object is aangemaakt'
+          description: 'Het tijdstip waarop dit Product object is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1423,9 +1431,9 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'De contactpersoon voor dit Product'
+          description: 'De contactpersoon voor dit Product.'
         eigenaar:
-          description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel'
+          description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheert en uitgeeft. De eigenaar kan dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel.'
           type: string
         id:
           readOnly: true
@@ -1475,9 +1483,9 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe dit product behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.'
         naam:
-          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over dit Product bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1494,18 +1502,18 @@ components:
             - extern
             - kaartje
             - variabel
-            - abonement
+            - abonnement
             - dienst
           example: simpel
           required: 'true'
-          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een verzameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leverancier <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn b.v. een t-shirt in verschillende kleuren <br/> **abonnement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
         extras:
-          description: 'De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.'
+          description: 'De producten die als extra op dit product bestelbaar zijn b.v. een opdruk op een glas of t-shirt.'
           type: array
           items:
             type: string
         losLeverbaar:
-          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld "false" zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden, maar alleen via het product waar het een extra of variatie van is.'
           type: boolean
         prijsExcl:
           description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
@@ -1527,7 +1535,7 @@ components:
           type: string
           format: date-time
         groepen:
-          description: 'De product groepen waartoe dit product behoord.'
+          description: 'De product groepen waartoe dit product behoort.'
           type: array
           items:
             type: string
@@ -1542,14 +1550,14 @@ components:
           title: ambtenaren
           type: array
           example: '[]'
-          description: 'Ambtenaren die bij dit product horen'
+          description: 'Ambtenaren die bij dit product horen.'
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         registratiedatum:
-          description: 'Het tijdstip waarop dit Product object is aangemaakt'
+          description: 'Het tijdstip waarop dit Product object is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1563,9 +1571,9 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'De contactpersoon voor dit Product'
+          description: 'De contactpersoon voor dit Product.'
         eigenaar:
-          description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel'
+          description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheert en uitgeeft. De eigenaar kan dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel.'
           type: string
       required:
         - naam
@@ -1599,7 +1607,7 @@ components:
           maxLength: 40
           summary: 'Haal de identificatie van een product op'
         naam:
-          description: 'De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van dit product. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         samenvatting:
           description: 'Een korte samenvattende tekst over dit Product bedoeld ter introductie.  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
@@ -1616,13 +1624,13 @@ components:
             - extern
             - kaartje
             - variabel
-            - abonement
+            - abonnement
             - dienst
           example: simpel
           required: 'true'
-          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
+          description: 'het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een verzameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leverancier <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn b.v. een t-shirt in verschillende kleuren <br/> **abonnement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar'
         losLeverbaar:
-          description: 'Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is'
+          description: 'Is dit product los leverbaar, kan bijvoorbeeld "false" zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden, maar alleen via het product waar het een extra of variatie van is.'
           type: boolean
         prijsExcl:
           description: 'De niet-decimale waarde voor de prijs van dit product (exclusief btw).'
@@ -1644,11 +1652,11 @@ components:
           title: ambtenaren
           type: array
           example: '[]'
-          description: 'Ambtenaren die bij dit product horen'
+          description: 'Ambtenaren die bij dit product horen.'
           items:
             type: string
         taal:
-          description: 'De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
+          description: 'De taal waarin de informatie van dit product is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>'
           type: string
         contactPersoon:
           title: Contactpersoon
@@ -1657,7 +1665,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'De contactpersoon voor dit Product'
+          description: 'De contactpersoon voor dit Product.'
       required:
         - naam
         - samenvatting
@@ -1679,10 +1687,10 @@ externalDocs:
 tags:
   -
     name: Product
-    description: 'Een verkoopbaar product'
+    description: 'Een verkoopbaar product.'
   -
     name: Groep
-    description: 'Een groep van producten '
+    description: 'Een groep van producten.'
   -
     name: Applicatie
     description: 'Een software applicatie binnen een organisatie die gebruik maakt van een component voor het creëren, ophalen, bijwerken of verwijderen van gegevens. Applicaties kunnen worden geregistreerd om namens een organisatie te handelen op een component. In deze zin zijn applicaties dan ook onderdeel van het beheerproces, infrastructuur en configuratie van een component in plaats van het datamodel dat door het component wordt geleverd.'

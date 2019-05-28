@@ -222,7 +222,7 @@ class Product implements StringableInterface
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de organisatie waartoe dit product behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven
+	 * Het RSIN van de organisatie waartoe dit product behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.
 	 *
 	 * @var integer
 	 * @ORM\Column(
@@ -254,7 +254,7 @@ class Product implements StringableInterface
 	public $bronOrganisatie;
 	
 	/**
-	 * De naam van dit product <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van dit product. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -339,13 +339,13 @@ class Product implements StringableInterface
 	public $beschrijving;
 	
 	/**
-	 * @var string het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een versameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leveranciers <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn e.g een t-shirt in verschillende kleuren <br/> **abonement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar 
+	 * @var string het type van de product. <br/> **simpel**: Een normaal product <br/> **samengesteld**: Een verzameling van andere producten die als set worden aangeboden <br/> **virtueel**: Een niet fysiek (bijvoorbeeld downloadbaar) product <br/> **extern**: Een product van een externe leverancier <br/> **kaartje**: Een toegangsbewijs <br/> **variabel**: Een product dat bestaat uit variaties die (fysiek) eigen producten zijn b.v. een t-shirt in verschillende kleuren <br/> **abonnement**: Een terugkerende betaling <br/> **dienst**: Een product dat moet worden uitgevoerd door een ambtenaar 
 	 * @ORM\Column
 	 * @ApiProperty(
 	 *     attributes={
 	 *         "openapi_context"={
 	 *             "type"="string",
-	 *             "enum"={"simpel", "samengesteld", "virtueel","extern","kaartje","variabel","abonement","dienst"},
+	 *             "enum"={"simpel", "samengesteld", "virtueel","extern","kaartje","variabel","abonnement","dienst"},
 	 *             "example"="simpel",
 	 *             "required"="true"
 	 *         }
@@ -363,7 +363,7 @@ class Product implements StringableInterface
 	public $type;
 	
 	/**
-	 * De producten die als extra op dit product bestelbaar zijn e.g. een opdruk op een glas of t-shirt.
+	 * De producten die als extra op dit product bestelbaar zijn b.v. een opdruk op een glas of t-shirt.
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|App\Entity\Product[]
 	 *
@@ -377,7 +377,7 @@ class Product implements StringableInterface
 	public $extras;
 	
 	/**
-	 * @var App\Entity\Product[] Producten waarbij dit product leverbaar is als extra
+	 * @var App\Entity\Product[] Producten waarbij dit product leverbaar is als extra.
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
@@ -396,7 +396,7 @@ class Product implements StringableInterface
 	public $producten;
 	
 	/**
-	 * @var App\Entity\Product[] De sets (samengestelde producten) waartoe dit product in voorkomt
+	 * @var App\Entity\Product[] De sets (samengestelde producten) waar dit product in voorkomt.
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
@@ -405,7 +405,7 @@ class Product implements StringableInterface
 	public $sets;
 	
 	/**
-	 * @var App\Entity\Product[]  (alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. e.g. een t-shirt met verschillende maten en kleuren
+	 * @var App\Entity\Product[]  (alleen toepasbaar bij product type variabel) De verschillende variaties van het product, elke variatie is een uniek product met eigen prijst en vooraad beheer. b.v. een t-shirt met verschillende maten en kleuren.
 	 * 
 	 * @MaxDepth(1)
 	 * @ApiProperty()
@@ -414,7 +414,7 @@ class Product implements StringableInterface
 	public $variaties;
 	
 	/**
-	 * @var Organisation (alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is e.g. een bepaalde kleur van een t-shirt
+	 * @var Organisation (alleen toepasbaar bij product type simpel) Het product waarvan dit product een variatie is b.v. een bepaalde kleur van een t-shirt
 	 *
 	 * @MaxDepth(1)
 	 * @ApiProperty()
@@ -423,7 +423,7 @@ class Product implements StringableInterface
 	public $moeder;
 		
 	/**
-	 * Is dit product los leverbaar, kan bijvoorbeeld false zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden maar alleen via het product waar het een extra of variatie van is 
+	 * Is dit product los leverbaar, kan bijvoorbeeld "false" zijn bij producten die alleen als extra op of variatie van een ander product voorkomen. In dat geval kan het product niet direct gekocht worden, maar alleen via het product waar het een extra of variatie van is. 
 	 *
 	 * @Groups({"read","write"})
 	 * @ApiFilter(BooleanFilter::class)
@@ -508,7 +508,7 @@ class Product implements StringableInterface
 	public $beschikbaar;
 	
 	/**
-	 * De product groepen waartoe dit product behoord.
+	 * De product groepen waartoe dit product behoort.
 	 *
 	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Groep[]
 	 *
@@ -542,7 +542,7 @@ class Product implements StringableInterface
 	public $locaties;
 	
 	/**
-	 * Ambtenaren die bij dit product horen
+	 * Ambtenaren die bij dit product horen.
 	 *
 	 * @var array
 	 * @ORM\Column(
@@ -563,7 +563,7 @@ class Product implements StringableInterface
 	public $ambtenaren;	
 	
 	/**
-	 * De taal waarin de informatie van dit product is opgesteld <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
+	 * De taal waarin de informatie van dit product is opgesteld. <br /><b>Schema:</b> <a href="https://www.ietf.org/rfc/rfc3066.txt">https://www.ietf.org/rfc/rfc3066.txt</a>
 	 *
 	 * @var string Een Unicode language identifier, ofwel RFC 3066 taalcode.
 	 *
@@ -585,7 +585,7 @@ class Product implements StringableInterface
 	public $taal = 'nl';
 	
 	/**
-	 * Het tijdstip waarop dit Product object is aangemaakt
+	 * Het tijdstip waarop dit Product object is aangemaakt.
 	 *
 	 * @var string Een "Y-m-d H:i:s" waarde bijvoorbeeld "2018-12-31 13:33:05" ofwel "Jaar-dag-maand uur:minuut:seconde"
 	 * @Gedmo\Timestampable(on="create")
@@ -612,7 +612,7 @@ class Product implements StringableInterface
 	public $wijzigingsdatum;
 	
 	/**
-	 * De contactpersoon voor dit Product
+	 * De contactpersoon voor dit Product.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -636,7 +636,7 @@ class Product implements StringableInterface
 	public $contactPersoon;
 	
 	/**
-	 * Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel
+	 * Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheert en uitgeeft. De eigenaar kan dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel.
 	 *
 	 * @var App\Entity\Applicatie $eigenaar
 	 *

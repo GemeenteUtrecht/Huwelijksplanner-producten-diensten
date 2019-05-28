@@ -125,7 +125,7 @@ class Groep
 {
 	
 	/**
-	 * Het identificatie nummer van deze Productgroep.  <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * Het identificatie nummer van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var int|null
 	 *
@@ -138,7 +138,7 @@ class Groep
 	public $id;
 	
 	/**
-	 * URL-referentie naar het afbeeldingsdocument vand deze Productgroep.
+	 * URL-referentie naar het afbeeldingsdocument van deze Productgroep.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
@@ -154,7 +154,7 @@ class Groep
 	 *             "required"="true",
 	 *             "maxLength"=255,
 	 *             "format"="uri",
-	 *             "description"="URL-referentie naar het afbeeldingsdocument vand deze Productgroep."
+	 *             "description"="URL-referentie naar het afbeeldingsdocument van deze Productgroep."
 	 *         }
 	 *     }
 	 * )
@@ -189,7 +189,7 @@ class Groep
 	
 	
 	/**
-	 * De unieke identificatie van de productgroep binnen de organisatie
+	 * De unieke identificatie van de productgroep binnen de organisatie.
 	 *
 	 * @var string
 	 * @ORM\Column(
@@ -211,7 +211,7 @@ class Groep
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de organisatie waartoe deze Productgroep behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.
+	 * Het RSIN van de organisatie waartoe deze Productgroep behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven.
 	 *
 	 * @var integer
 	 * @ORM\Column(
@@ -243,7 +243,7 @@ class Groep
 	public $bronOrganisatie;
 	
 	/**
-	 * De naam van deze Productgroep <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van deze Productgroep. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -360,7 +360,7 @@ class Groep
 	public $producten;
 	
 	/**
-	 * Add Product
+	 * Voeg Product toe.
 	 *
 	 * @param  \App\Entity\Product $product
 	 * @return Order
@@ -373,7 +373,7 @@ class Groep
 	}
 	
 	/**
-	 * Remove Product
+	 * Verwijder Product.
 	 *
 	 * @param \App\Entity\Product $product
 	 */
@@ -383,7 +383,7 @@ class Groep
 	}
 	
 	/**
-	 * Get Product
+	 * Haal Product op.
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
